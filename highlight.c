@@ -1,6 +1,6 @@
 #include "same.h"
 
-int collapse() {
+int collapse_vertical() {
  for (int col = width-1; col >= 0; col--) {
   for (int row = height-1; row > 0; row--) {
    if (board[col][row] < 0 && row > 0) {
@@ -14,6 +14,12 @@ int collapse() {
    }
   }
  }
+
+ return 0;
+}
+
+int collapse() {
+ collapse_vertical();
 
  highlight_none();
  refresh();
