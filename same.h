@@ -8,6 +8,9 @@ int board[32][16];
 static int blocknum = 4;
 
 bool hled[1024][1024];
+bool newgame;
+bool firstgame;
+int n, score;
 int delblock(int x, int y);
 int highlight(int x, int y);
 int highlight_none();

@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 int clear_command() {
+ return 0;
  int a,b;
  getmaxyx(stdscr,a,b);
  attron(COLOR_PAIR(20));
@@ -25,8 +26,8 @@ int command_wait() {
  getmaxyx(stdscr,a,b);
  
  if (strcmp(key,"new") == 0) {
-  reset_board();
   clear_command();
+  reset_board();
   return 0;
  }
  if (strcmp(key,"q") == 0) return 1;
@@ -47,7 +48,7 @@ int command_wait() {
  }
 
  // Clear command line
- mvprintw(a-1,0,"E492: Not an editor command: %s",key);
+ mvprintw(a-1,0,"Not a command: %s",key);
  refresh();
  sleep(2);
  clear_command();

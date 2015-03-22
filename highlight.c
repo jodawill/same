@@ -37,6 +37,7 @@ bool is_col_empty(int col) {
   if (board[col][r] >= 0) return false;
   else if (r == 1) return true;
  }
+ return false;
 }
 
 int collapse_horizontal() {
@@ -48,6 +49,7 @@ int collapse_horizontal() {
    }
   }
  }
+ return 0;
 }
 
 int collapse() {
@@ -83,6 +85,7 @@ int check_hl(int x, int y, char bl, bool remq) {
  if (x > 0 && !hled[x-1][y] && board[x-1][y] == bl
      && board[x-1][y] > -1) {
   if (remq) {
+   n++;
    attron(COLOR_PAIR(20));
    mvprintw(y,x-1," ");
    board[x-1][y] = -1;
@@ -99,6 +102,7 @@ int check_hl(int x, int y, char bl, bool remq) {
  if (x+1 < width && !hled[x+1][y] && board[x+1][y] == bl
      && board[x+1][y] > -1) {
   if (remq) {
+   n++;
    attron(COLOR_PAIR(20));
    mvprintw(y,x+1," ");
    board[x+1][y] = -1;
@@ -115,6 +119,7 @@ int check_hl(int x, int y, char bl, bool remq) {
  if (y > 0 && !hled[x][y-1] && board[x][y-1] == bl
      && board[x][y-1] > -1) {
   if (remq) {
+   n++;
    attron(COLOR_PAIR(20));
    mvprintw(y-1,x," ");
    board[x][y-1] = -1;
@@ -131,6 +136,7 @@ int check_hl(int x, int y, char bl, bool remq) {
  if (y+1 < height && !hled[x][y+1] && board[x][y+1] == bl
      && board[x][y+1] > -1) {
   if (remq) {
+   n++;
    attron(COLOR_PAIR(20));
    mvprintw(y+1,x," ");
    board[x][y+1] = -1;
@@ -148,8 +154,19 @@ int check_hl(int x, int y, char bl, bool remq) {
 }
 
 int delblock(int x, int y) {
+ if (newgame) {
+  newgame = false;
+  if (firstgame) {
+   firstgame = false;
+  } else return 0;
+ }
  highlight_none();
+ n = 0;
  check_hl(x,y,board[x][y],true);
+ attron(COLOR_PAIR(20));
+ score += (n-1)*(n-1);
+ mvprintw(19,0,"Score: %i",score);
+ n = 0;
  collapse();
  move(y,x);
  refresh();

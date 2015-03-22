@@ -8,6 +8,7 @@ int get_rand(int cap) {
 }
 
 int init() {
+ firstgame = true;
  highlight_none();
  x = 0;
  y = 0;
