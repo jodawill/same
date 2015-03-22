@@ -115,7 +115,3 @@ int cursor_wait() {
  }
 }
 
-int get_rand(int cap) {
- return rand() % cap;
-}
-
