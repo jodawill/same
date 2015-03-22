@@ -4,13 +4,13 @@ int collapse_vertical() {
  for (int col = width-1; col >= 0; col--) {
   for (int row = height-1; row > 0; row--) {
    if (board[col][row] < 0 && row > 0) {
-    board[col][0] = -1;
     int r;
     for (r = row; r > 0 && board[col][r] < 0; r--);
     board[col][row] = board[col][r];
     for (; r > 0; r--) {
      board[col][r] = board[col][r-1];
     }
+    board[col][0] = -1;
    }
   }
  }
@@ -18,8 +18,41 @@ int collapse_vertical() {
  return 0;
 }
 
+bool move_horizontal(int col) {
+ int c;
+ for (c = col; c < width; c++) {
+  for (int r = 0; r < height; r++) {
+   if (c < width - 1) {
+    board[c][r] = board[c+1][r];
+   } else {
+    board[c][r] = -1;
+   }
+  }
+ }
+ return true;
+}
+
+bool is_col_empty(int col) {
+ for (int r = height-1; r > 0; r--) {
+  if (board[col][r] >= 0) return false;
+  else if (r == 1) return true;
+ }
+}
+
+int collapse_horizontal() {
+ for (int col = 0; col < width; col++) {
+  if (is_col_empty(col)) {
+   for (int c = col; c < width; c++) {
+    move_horizontal(col);
+    if (!is_col_empty(col)) break;
+   }
+  }
+ }
+}
+
 int collapse() {
  collapse_vertical();
+ collapse_horizontal();
 
  highlight_none();
  refresh();
