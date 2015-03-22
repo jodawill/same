@@ -3,6 +3,10 @@
 #include <time.h>
 #include "same.h"
 
+int get_rand(int cap) {
+ return rand() % cap;
+}
+
 int init() {
  highlight_none();
  x = 0;
