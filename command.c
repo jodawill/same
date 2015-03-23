@@ -104,37 +104,31 @@ int cursor_wait() {
    case 'd': {
     if (getch() != 'd') break;
    }
+   case 'x': {
+   }
    case '\n': {
     delblock(x,y);
     break;
    }
    case KEY_LEFT: {
-    if (x > 0) x--;
-    break;
    }
    case 'h': {
     if (x > 0) x--;
     break;
    }
    case KEY_RIGHT: {
-    if (x < width - 1) x++;
-    break;
    }
    case 'l': {
     if (x < width - 1) x++;
     break;
    }
    case KEY_UP: {
-    if (y > 0) y--;
-    break;
    }
    case 'k': {
     if (y > 0) y--;
     break;
    }
    case KEY_DOWN: {
-    if (y < height - 1) y++;
-    break;
    }
    case 'j': {
     if (y < height - 1) y++;
