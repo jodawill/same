@@ -154,12 +154,6 @@ int check_hl(int x, int y, char bl, bool remq) {
 }
 
 int delblock(int x, int y) {
- if (newgame) {
-  newgame = false;
-  if (firstgame) {
-   firstgame = false;
-  } else return 0;
- }
  highlight_none();
  n = 0;
  check_hl(x,y,board[x][y],true);

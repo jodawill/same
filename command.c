@@ -6,7 +6,6 @@
 #include <unistd.h>
 
 int clear_command() {
- return 0;
  int a,b;
  getmaxyx(stdscr,a,b);
  attron(COLOR_PAIR(20));
@@ -71,10 +70,10 @@ int cursor_wait() {
     if (command_wait() == 1) {
      return 0;
     }
+    break;
    }
    case '\n': {
     delblock(x,y);
-    //mvprintw(y,x,"%c",blocks[board[x][y]]);
     break;
    }
    case KEY_LEFT: {
