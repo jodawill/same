@@ -2,8 +2,25 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "same.h"
-#include <strings.h>
 #include <unistd.h>
+
+int draw_command(const char *text) {
+ clear_command();
+ attron(COLOR_PAIR(20));
+ int a,b;
+ getmaxyx(stdscr,a,b);
+ mvprintw(a-1,0,text);
+ refresh();
+ move(y,x);
+ return 0;
+}
+
+int draw_score() {
+ attron(COLOR_PAIR(20));
+ mvprintw(19,0,"                             ");
+ mvprintw(19,0,"Score: %i",score);
+ return 0;
+}
 
 int clear_command() {
  int a,b;
@@ -13,6 +30,7 @@ int clear_command() {
   mvprintw(a-1,c," ");
  }
  refresh();
+ move(y,x);
  return 0;
 }
 
@@ -29,28 +47,34 @@ int command_wait() {
   reset_board();
   return 0;
  }
+ if (strcmp(key,"") == 0) {
+  clear_command();
+  return 0;
+ }
+ if (strcmp(key,"u") == 0) {
+  clear_command();
+  undo();
+  return 0;
+ }
  if (strcmp(key,"q") == 0) return 1;
  if (strcmp(key,"x") == 0) {
   // Save game
-  mvprintw(a-1,0,"Save not yet implemented");
-  refresh();
-  sleep(2);
+  draw_command("Save not yet implemented.");
+  sleep(1);
   return 1;
  }
  if (strcmp(key,"w") == 0) {
   // Save game
-  mvprintw(a-1,0,"Save not yet implemented");
-  refresh();
-  sleep(2);
-  clear_command();
+  draw_command("Save not yet implemented.");
   return 0;
  }
 
  // Clear command line
- mvprintw(a-1,0,"Not a command: %s",key);
+ char text[1024] = "";
+ strcat(text,"Not a command: ");
+ strcat(text,key);
+ draw_command(text);
  refresh();
- sleep(2);
- clear_command();
 
  return 0;
 }
@@ -61,6 +85,7 @@ int cursor_wait() {
  while (true) {
   switch (getch()) {
    case ':': {
+    clear_command();
     int a,b;
     getmaxyx(stdscr,a,b);
     attron(COLOR_PAIR(20));
@@ -71,6 +96,13 @@ int cursor_wait() {
      return 0;
     }
     break;
+   }
+   case 'u': {
+    undo();
+    break;
+   }
+   case 'd': {
+    if (getch() != 'd') break;
    }
    case '\n': {
     delblock(x,y);

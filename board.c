@@ -12,13 +12,13 @@ int reset_board() {
  x = 0;
  y = 0;
  move(y,x);
+ undonum = 0;
  score = 0;
  n = 0;
  attron(COLOR_PAIR(20));
  mvprintw(19,0,"                   ");
  mvprintw(19,0,"Score: %i",score);
  refresh();
- newgame = true;
 
 
  return 0;

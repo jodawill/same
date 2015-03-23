@@ -155,11 +155,12 @@ int check_hl(int x, int y, char bl, bool remq) {
 
 int delblock(int x, int y) {
  highlight_none();
+ copy_board();
  n = 0;
  check_hl(x,y,board[x][y],true);
  attron(COLOR_PAIR(20));
  score += (n-1)*(n-1);
- mvprintw(19,0,"Score: %i",score);
+ draw_score();
  n = 0;
  collapse();
  move(y,x);

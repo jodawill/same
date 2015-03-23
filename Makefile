@@ -1,5 +1,5 @@
 HEADERS = same.h
-OBJECTS = same.o colors.o highlight.o board.o misc.o init.o
+OBJECTS = same.o save.o colors.o highlight.o board.o command.o init.o
 
 default: same
 
