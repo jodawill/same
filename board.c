@@ -24,3 +24,24 @@ int reset_board() {
  return 0;
 }
 
+bool is_block_alone(int col, int row) {
+ char b = board[col][row];
+ if (b < 0) return true;
+ if (row > 0 && b == board[col][row-1]) return false;
+ if (row < height && b == board[col][row+1]) return false;
+ if (col > 0 && b == board[col-1][row]) return false;
+ if (col < width && b == board[col+1][row]) return false;
+
+ return true;
+}
+
+bool is_game_over() {
+ for (int col = 0; col < width; col++) {
+  for (int row = 0; row < height; row++) {
+   if (!is_block_alone(col,row)) return false;
+  }
+ }
+
+ return true;
+}
+
