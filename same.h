@@ -6,14 +6,12 @@
 
 static int width = 32;
 static int height = 16;
-static int hst_size = 10;
 int board[32][16];
 int board_undo[1024][32][16];
 static int blocknum = 4;
 
 bool hled[1024][1024];
 bool is_game_over();
-int check_highscore();
 int end_game();
 int draw_command(const char *text);
 int clear_command();
