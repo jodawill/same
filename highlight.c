@@ -158,9 +158,11 @@ int delblock(int x, int y) {
  copy_board();
  n = 0;
  check_hl(x,y,board[x][y],true);
- attron(COLOR_PAIR(20));
- score += (n-1)*(n-1);
- draw_score();
+ if (n > 1) {
+  attron(COLOR_PAIR(20));
+  score += (n-1)*(n-1);
+  draw_score();
+ }
  n = 0;
  collapse();
  move(y,x);
