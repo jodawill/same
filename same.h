@@ -12,6 +12,10 @@ static int blocknum = 4;
 
 bool hled[1024][1024];
 bool is_game_over();
+bool is_block_alone(int x, int y);
+int draw_board();
+int redonum;
+int draw_undo();
 int end_game();
 int draw_command(const char *text);
 int clear_command();
@@ -19,6 +23,7 @@ int draw_score();
 int undonum;
 int score_undo[1024];
 int undo();
+int redo();
 int copy_board();
 int n, score;
 int delblock(int x, int y);

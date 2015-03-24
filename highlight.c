@@ -155,24 +155,28 @@ int check_hl(int x, int y, char bl, bool remq) {
 
 int delblock(int x, int y) {
  highlight_none();
- copy_board();
  n = 0;
+ copy_board();
  check_hl(x,y,board[x][y],true);
  if (n > 1) {
+  undonum++;
+  redonum = 0;
   attron(COLOR_PAIR(20));
   score += (n-1)*(n-1);
   draw_score();
+  n = 0;
+  collapse();
+  move(y,x);
+  refresh();
+  if (is_game_over()) end_game();
  }
- n = 0;
- collapse();
- move(y,x);
- refresh();
- if (is_game_over()) end_game();
 
  return 0;
 }
 
 int highlight(int x, int y) {
+ draw_undo();
+ if (is_block_alone(x,y)) return 1;
  if (board[x][y] < 0) return 1;
  highlight_none();
  check_hl(x,y,board[x][y],false);

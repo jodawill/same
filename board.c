@@ -13,8 +13,10 @@ int reset_board() {
  y = 0;
  move(y,x);
  undonum = 0;
+ redonum = 0;
  score = 0;
  n = 0;
+ copy_board();
  attron(COLOR_PAIR(20));
  mvprintw(19,0,"                   ");
  mvprintw(19,0,"Score: %i",score);

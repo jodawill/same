@@ -4,6 +4,33 @@
 #include "same.h"
 #include <unistd.h>
 
+int draw_board() {
+ for (int col = 0; col < width; col++) {
+  for (int row = 0; row < height; row++) {
+   if (board[col][row] < 0) {
+    attron(COLOR_PAIR(20));
+    mvprintw(row,col," ");
+   } else {
+    attron(COLOR_PAIR(board[col][row]+1));
+    mvprintw(row,col,"%c",blocks[board[col][row]+1]);
+   }
+  }
+ }
+ refresh();
+ return 0;
+}
+
+int draw_undo() {
+ attron(COLOR_PAIR(20));
+ mvprintw(0,width+1,"                     ");
+ mvprintw(1,width+1,"                     ");
+ mvprintw(0,width+1,"Undos available: %i",undonum);
+ mvprintw(1,width+1,"Redos available: %i",redonum);
+ move(y,x);
+
+ return 0;
+}
+
 int draw_command(const char *text) {
  clear_command();
  attron(COLOR_PAIR(20));
@@ -56,6 +83,11 @@ int command_wait() {
   undo();
   return 0;
  }
+ if (strcmp(key,"r") == 0) {
+  clear_command();
+  redo();
+  return 0;
+ }
  if (strcmp(key,"q") == 0) return 1;
  if (strcmp(key,"x") == 0) {
   // Save game
@@ -99,6 +131,10 @@ int cursor_wait() {
    }
    case 'u': {
     undo();
+    break;
+   }
+   case 'r': {
+    redo();
     break;
    }
    case 'd': {
