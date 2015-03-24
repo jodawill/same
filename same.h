@@ -10,9 +10,13 @@ int board[32][16];
 int board_undo[1024][32][16];
 static int blocknum = 4;
 
+int highscore;
 bool hled[1024][1024];
 bool is_game_over();
 bool is_block_alone(int x, int y);
+int read_hst();
+int write_hst();
+int draw_hst();
 int draw_board();
 int redonum;
 int draw_undo();

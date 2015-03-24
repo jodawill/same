@@ -18,12 +18,19 @@ int draw_board() {
 
 int draw_undo() {
  attron(COLOR_PAIR(20));
- mvprintw(0,width+1,"                     ");
- mvprintw(1,width+1,"                     ");
- mvprintw(0,width+1,"Undos available: %i",undonum);
- mvprintw(1,width+1,"Redos available: %i",redonum);
+ mvprintw(2,width+1,"                     ");
+ mvprintw(3,width+1,"                     ");
+ mvprintw(2,width+1,"Undos available: %i",undonum);
+ mvprintw(3,width+1,"Redos available: %i",redonum);
  move(y,x);
 
+ return 0;
+}
+
+int draw_hst() {
+ attron(COLOR_PAIR(20));
+ mvprintw(0,width+1,"Highscore: %i",highscore);
+ move(y,x);
  return 0;
 }
 
@@ -42,6 +49,11 @@ int draw_score() {
  attron(COLOR_PAIR(20));
  mvprintw(19,0,"                             ");
  mvprintw(19,0,"Score: %i",score);
+ if (score > highscore) {
+  highscore = score;
+  write_hst();
+  draw_hst();
+ }
  return 0;
 }
 

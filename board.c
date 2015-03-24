@@ -17,6 +17,8 @@ int reset_board() {
  score = 0;
  n = 0;
  copy_board();
+ read_hst();
+ draw_hst();
  draw_score();
  draw_undo();
  refresh();
