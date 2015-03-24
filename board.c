@@ -17,9 +17,8 @@ int reset_board() {
  score = 0;
  n = 0;
  copy_board();
- attron(COLOR_PAIR(20));
- mvprintw(19,0,"                   ");
- mvprintw(19,0,"Score: %i",score);
+ draw_score();
+ draw_undo();
  refresh();
 
 
