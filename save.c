@@ -13,6 +13,8 @@ int copy_board() {
 }
 
 int undo() {
+ if (undonum <= 0) return 1;
+
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
    board[col][row] = board_undo[undonum][col][row];
