@@ -16,7 +16,7 @@ int init() {
  time_t t;
  srand((unsigned)time(&t));
  define_colors();
- //attron(COLOR_PAIR(1));
+ draw_logo();
  keypad(stdscr,true);
  reset_board();
  cursor_wait();

@@ -18,18 +18,35 @@ int draw_board() {
 
 int draw_undo() {
  attron(COLOR_PAIR(20));
- mvprintw(2,width+1,"                     ");
- mvprintw(3,width+1,"                     ");
- mvprintw(2,width+1,"Undos available: %i",undonum);
- mvprintw(3,width+1,"Redos available: %i",redonum);
+ mvprintw(height-4,width+1,"                     ");
+ mvprintw(height-3,width+1,"                     ");
+ mvprintw(height-4,width+1,"Undos available: %i",undonum);
+ mvprintw(height-3,width+1,"Redos available: %i",redonum);
  move(y,x);
 
  return 0;
 }
 
+int draw_logo() {
+ attron(COLOR_PAIR(20));
+ mvprintw(0,width+1,"    SameGame");
+ mvprintw(1,width+1,"by Josh Williams");
+ move(y,x);
+ return 0;
+}
+
 int draw_hst() {
  attron(COLOR_PAIR(20));
- mvprintw(0,width+1,"Highscore: %i",highscore);
+ if (highscore <= 0) {
+  mvprintw(height-6,width+1,"Highscore not set.");
+  return 1;
+ }
+ mvprintw(height-8,width+1,"                 ");
+ mvprintw(height-7,width+1,"                 ");
+ mvprintw(height-6,width+1,"                 ");
+ mvprintw(height-8,width+1,"Highscore:");
+ mvprintw(height-7,width+3,"%s",hsn);
+ mvprintw(height-6,width+3,"%i",highscore);
  move(y,x);
  return 0;
 }
@@ -47,13 +64,8 @@ int draw_command(const char *text) {
 
 int draw_score() {
  attron(COLOR_PAIR(20));
- mvprintw(19,0,"                             ");
- mvprintw(19,0,"Score: %i",score);
- if (score > highscore) {
-  highscore = score;
-  write_hst();
-  draw_hst();
- }
+ mvprintw(height-1,width+1,"                             ");
+ mvprintw(height-1,width+1,"Score: %i",score);
  return 0;
 }
 
@@ -72,7 +84,7 @@ int clear_command() {
 int command_wait() {
  char key[1024];
  echo();
- getnstr(key,1024);
+ getnstr(key,sizeof key);
  noecho();
  int a,b;
  getmaxyx(stdscr,a,b);

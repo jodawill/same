@@ -1,13 +1,33 @@
 #include "same.h"
 
+int get_hsn() {
+ clear_command();
+ int a,b;
+ getmaxyx(stdscr,a,b);
+ attron(COLOR_PAIR(20));
+ mvprintw(a-1,0,"Name: ");
+ echo();
+ strcpy(hsn,"");
+ while (strcmp(hsn,"") == 0) {
+  move(a-1,6);
+  getnstr(hsn,(sizeof hsn)-4);
+ }
+ noecho();
+ clear_command();
+ write_hst();
+ return 0;
+}
+
 int read_hst() {
  FILE *hstf = fopen(".hst","r");
  if (hstf == NULL) {
+  strcpy(hsn,"");
   highscore = 0;
   return 1;
  }
  char hs[10];
- fgets(hs,sizeof hs,hstf);
+ fgets(hsn,(sizeof hsn)-2,hstf);
+ fgets(hs,10,hstf);
  highscore = atoi(hs);
  fclose(hstf);
  return 0;
@@ -16,7 +36,9 @@ int read_hst() {
 int write_hst() {
  FILE *hstf = fopen(".hst","w");
  if (hstf == NULL) return 1;
- fprintf(hstf,"%i",highscore);
+ if (score > highscore) highscore = score;
+ fprintf(hstf,"%s\n",hsn);
+ fprintf(hstf,"%i\n",highscore);
  fclose(hstf);
  return 0;
 }
