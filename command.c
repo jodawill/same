@@ -1,8 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
 #include "same.h"
-#include <unistd.h>
 
 int draw_board() {
  for (int col = 0; col < width; col++) {

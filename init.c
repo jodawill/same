@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
 #include "same.h"
 
 int get_rand(int cap) {
