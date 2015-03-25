@@ -178,11 +178,24 @@ int command_wait() {
  }
  if (strcmp(key,"hard") == 0) {
   if (easy) {
-   draw_command("Hard mode enabled.");
+   draw_command("Hard mode enabled");
    easy = false;
    reset_board();
   } else {
-   draw_error("Already on hard mode.");
+   draw_error("Already on hard mode");
+  }
+  return 0;
+ }
+ if (strcmp(key,"god") == 0) {
+  if (god) {
+   draw_command("God mode disabled");
+   god = false;
+   reset_board();
+  } else {
+   if (!confirm("Enabling god mode will reset the board.")) return 0;
+   draw_command("God mode enabled");
+   god = true;
+   reset_board();
   }
   return 0;
  }

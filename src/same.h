@@ -17,6 +17,7 @@ int set_height(int h);
 int display_height, display_width;
 char hst_fn[1024];
 bool easy;
+bool god;
 int highscore;
 bool hled[1024][1024];
 bool is_game_over();

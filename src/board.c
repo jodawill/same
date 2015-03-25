@@ -8,6 +8,9 @@ int reset_board() {
    if (easy && get_rand(4) == 1) {
     board[col][row] = eb;
    }
+   if (god) {
+    board[col][row] = eb;
+   }
    attron(COLOR_PAIR(1 + board[col][row]));
    mvprintw(row,col,"%c",blocks[1 + board[col][row]]);
    hled[col][row] = false;

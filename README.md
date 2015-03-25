@@ -12,7 +12,7 @@ To quit, type ':q'. To save before quitting, type ':x'. (Not yet implemented.)
 
 To save the game, type ':w'. (Not yet implemented.)
 
-To play on easy mode, type ':easy'. To go back to hard mode, type ':hard'.
+To play on easy mode, type ':easy'. To go back to hard mode, type ':hard'. There is also a special "god" mode to fill the board with one type of block, mainly for debugging purposes. To enable, type ':god'.
 
 To resize the board, use ':seth n' and ':setw n'.
 
