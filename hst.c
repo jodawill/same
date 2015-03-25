@@ -8,8 +8,14 @@ int get_hsn() {
  mvprintw(a-1,0,"New highscore! Name: ");
  echo();
  strcpy(hsn,"");
+ move(a-1,21);
+ getnstr(hsn,(sizeof hsn)-4);
  while (strcmp(hsn,"") == 0) {
-  move(a-1,6);
+  draw_error("Name is required");
+  getch();
+  clear_command();
+  mvprintw(a-1,0,"New highscore! Name: ");
+  move(a-1,21);
   getnstr(hsn,(sizeof hsn)-4);
  }
  noecho();

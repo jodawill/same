@@ -25,6 +25,7 @@ int redonum;
 int draw_undo();
 int end_game();
 int draw_command(const char *text);
+int draw_error(const char *text);
 int clear_command();
 int draw_score();
 int undonum;
