@@ -1,8 +1,8 @@
 NAME = same
 CC=gcc
 CFLAGS=-I. -lncurses
-DEPS = same.h
-OBJECTS = same.o hst.o endgame.o save.o colors.o highlight.o board.o command.o init.o
+DEPS = src/same.h
+OBJECTS = src/same.o src/hst.o src/endgame.o src/save.o src/colors.o src/highlight.o src/board.o src/command.o src/init.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $<
