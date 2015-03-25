@@ -12,6 +12,8 @@ To quit, type ':q'. To save before quitting, type ':x'. (Not yet implemented.)
 
 To save the game, type ':w'. (Not yet implemented.)
 
+To play on easy mode, type ':easy'. To go back to hard mode, type ':hard'.
+
 ##Strategy
 
 Points are calculated by (n-1)<sup>2</sup>, where n is the number of blocks in the chain being deleted. Thus, the more blocks you have in a chain, the more points you will earn.

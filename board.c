@@ -1,9 +1,13 @@
 #include "same.h"
 
 int reset_board() {
+ char eb = get_rand(blocknum);
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
    board[col][row] = get_rand(blocknum);
+   if (easy && get_rand(4) == 1) {
+    board[col][row] = eb;
+   }
    attron(COLOR_PAIR(1 + board[col][row]));
    mvprintw(row,col,"%c",blocks[1 + board[col][row]]);
    hled[col][row] = false;

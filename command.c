@@ -132,6 +132,26 @@ int command_wait() {
   draw_error("Save not yet implemented.");
   return 0;
  }
+ if (strcmp(key,"easy") == 0) {
+  if (!easy) {
+   draw_command("Easy mode enabled.");
+   easy = true;
+   reset_board();
+  } else {
+   draw_error("Already on easy mode.");
+  }
+  return 0;
+ }
+ if (strcmp(key,"hard") == 0) {
+  if (easy) {
+   draw_command("Hard mode enabled.");
+   easy = false;
+   reset_board();
+  } else {
+   draw_error("Already on hard mode.");
+  }
+  return 0;
+ }
 
  // Clear command line
  char text[1024] = "";

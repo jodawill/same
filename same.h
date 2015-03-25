@@ -11,6 +11,7 @@ int board_undo[1024][32][16];
 static int blocknum = 4;
 char hsn[14];
 
+bool easy;
 int highscore;
 bool hled[1024][1024];
 bool is_game_over();
