@@ -62,6 +62,18 @@ int draw_command(const char *text) {
  return 0;
 }
 
+int draw_error(const char *text) {
+ clear_command();
+ attron(COLOR_PAIR(21));
+ int a,b;
+ getmaxyx(stdscr,a,b);
+ mvprintw(a-1,0,text);
+ refresh();
+ move(y,x);
+
+ return 0;
+}
+
 int draw_score() {
  attron(COLOR_PAIR(20));
  mvprintw(height-1,width+1,"                             ");
@@ -111,13 +123,13 @@ int command_wait() {
  if (strcmp(key,"q") == 0) return 1;
  if (strcmp(key,"x") == 0) {
   // Save game
-  draw_command("Save not yet implemented.");
+  draw_error("Save not yet implemented.");
   sleep(1);
   return 1;
  }
  if (strcmp(key,"w") == 0) {
   // Save game
-  draw_command("Save not yet implemented.");
+  draw_error("Save not yet implemented.");
   return 0;
  }
 
@@ -125,7 +137,7 @@ int command_wait() {
  char text[1024] = "";
  strcat(text,"Not a command: ");
  strcat(text,key);
- draw_command(text);
+ draw_error(text);
  refresh();
 
  return 0;
