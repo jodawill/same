@@ -1,5 +1,4 @@
-# same
-SameGame
+# SameGame
 
 This is a SameGame clone with vi-like commands.
 
