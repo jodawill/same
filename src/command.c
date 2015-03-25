@@ -180,8 +180,13 @@ int command_wait() {
   return 0;
  }
  if (strcmp(key,"easy") == 0) {
-  if (!easy) {
+  if (!easy || god) {
+   if (!gameover &&
+       !confirm("Changing difficulty will reset the board. Continue?")) {
+    return 0;
+   }
    draw_command("Easy mode enabled.");
+   god = false;
    easy = true;
    reset_board();
   } else {
@@ -190,8 +195,13 @@ int command_wait() {
   return 0;
  }
  if (strcmp(key,"hard") == 0) {
-  if (easy) {
+  if (easy || god) {
    draw_command("Hard mode enabled");
+   if (!gameover &&
+       !confirm("Changing difficulty will reset the board. Continue?")) {
+    return 0;
+   }
+   god = false;
    easy = false;
    reset_board();
   } else {
