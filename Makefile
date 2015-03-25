@@ -1,13 +1,13 @@
-HEADERS = same.h
+CC=gcc
+CFLAGS=-I. -lncurses
+DEPS = same.h
 OBJECTS = same.o hst.o endgame.o save.o colors.o highlight.o board.o command.o init.o
 
-default: same
-
-%.o: %.c $(HEADERS)
-	gcc -c $< -o $@ -lncurses
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 same: $(OBJECTS)
-	gcc $(OBJECTS) -o $@ -lncurses
+	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
 	rm *.o same
