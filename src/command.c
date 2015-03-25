@@ -111,10 +111,16 @@ int draw_score() {
  }
  mvprintw(h-1,width+1,"                             ");
  mvprintw(h-1,width+1,"Score: %i",score);
- if (easy) {
-  mvprintw(h-6,width+1,"Difficulty: Easy");
- } else {
-  mvprintw(h-6,width+1,"Difficulty: Hard");
+ mvprintw(h-6,width+1,"                    ");
+ if (god) {
+  mvprintw(h-6,width+1,"Difficulty: God Mode");
+ }
+ else {
+  if (easy) {
+   mvprintw(h-6,width+1,"Difficulty: Easy");
+  } else {
+   mvprintw(h-6,width+1,"Difficulty: Hard");
+  }
  }
  return 0;
 }
