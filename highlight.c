@@ -176,7 +176,11 @@ int delblock(int x, int y) {
 
 int highlight(int x, int y) {
  draw_undo();
- if (is_block_alone(x,y)) return 1;
+ if (is_block_alone(x,y)) {
+  highlight_none();
+  move(y,x);
+  return 1;
+ }
  if (board[x][y] < 0) return 1;
  highlight_none();
  check_hl(x,y,board[x][y],false);
