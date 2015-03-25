@@ -30,6 +30,7 @@ int redo() {
  draw_score();
  redonum--;
  draw_command("Reverted to next board state.");
+ if (is_game_over()) end_game();
  refresh();
 
  return 0;
@@ -41,6 +42,7 @@ int undo() {
   return 1;
  }
 
+ gameover = false;
  if (redonum <= 0) copy_board();
  undonum--;
 

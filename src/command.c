@@ -135,9 +135,10 @@ int command_wait() {
  
  if (strcmp(key,"new") == 0) {
   clear_command();
-  if (confirm("Are you sure you want to start a new game?")) {
+  if (!gameover && confirm("Are you sure you want to start a new game?")) {
    reset_board();
   }
+  if (gameover) reset_board();
   return 0;
  }
  if (strcmp(key,"") == 0) {
@@ -291,9 +292,11 @@ int cursor_wait() {
    }
    case 'n': {
     clear_command();
-    if (confirm("Are you sure you want to start a new game?")) {
+    if (!gameover &&
+        confirm("Are you sure you want to start a new game?")) {
      reset_board();
     }
+    if (gameover) reset_board();
     break;
    }
   }

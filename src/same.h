@@ -12,6 +12,7 @@ int board_undo[1024][1024][1024];
 static int blocknum = 4;
 char hsn[14];
 
+bool gameover;
 int set_width(int w);
 int set_height(int h);
 int display_height, display_width;

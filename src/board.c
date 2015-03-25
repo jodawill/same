@@ -18,6 +18,7 @@ int reset_board() {
  }
  x = 0;
  y = 0;
+ gameover = false;
  int a,b;
  getmaxyx(stdscr,a,b);
  // At some point, this needs to become a global variable
