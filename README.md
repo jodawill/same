@@ -1,6 +1,19 @@
 # same
 SameGame
 
-This is a SameGame clone with vi-like commands. You can navigate with either the arrows or 'hjkl'. Press 'u' to undo and 'x', 'dd', or return to delete blocks. When you press ':', you will be prompted for a command. Enter an empty string to cancel, type 'q' to quit, 'x' to save and quit,  'w' to save, or 'u' to undo.
+This is a SameGame clone with vi-like commands.
 
-This version features unlimited undos and redos.
+##Controls
+
+To navigate, you may either use the arrows or 'hjkl'. To delete a section of blocks, press &lt;enter&gt;, 'dd', or 'x'.
+
+To undo, press 'u' or type ':u'. To redo, press 'r' or type ':r'. You can see how many undos and redos you have available on the right side of the screen.
+
+To quit, type ':q'. To save before quitting, type ':x'. (Not yet implemented.)
+
+To save the game, type ':w'. (Not yet implemented.)
+
+##Strategy
+
+Points are calculated by (n-1)<sup>2</sup>, where n is the number of blocks in the chain being deleted. Thus, the more blocks you have in a chain, the more points you will earn.
+
