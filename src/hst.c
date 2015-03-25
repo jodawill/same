@@ -25,7 +25,7 @@ int get_hsn() {
 }
 
 int read_hst() {
- FILE *hstf = fopen(".hst","r");
+ FILE *hstf = fopen(hst_fn,"r");
  if (hstf == NULL) {
   strcpy(hsn,"");
   highscore = 0;
@@ -40,7 +40,7 @@ int read_hst() {
 }
 
 int write_hst() {
- FILE *hstf = fopen(".hst","w");
+ FILE *hstf = fopen(hst_fn,"w");
  if (hstf == NULL) return 1;
  if (score > highscore) highscore = score;
  fprintf(hstf,"%s\n",hsn);
