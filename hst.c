@@ -5,7 +5,7 @@ int get_hsn() {
  int a,b;
  getmaxyx(stdscr,a,b);
  attron(COLOR_PAIR(20));
- mvprintw(a-1,0,"Name: ");
+ mvprintw(a-1,0,"New highscore! Name: ");
  echo();
  strcpy(hsn,"");
  while (strcmp(hsn,"") == 0) {
