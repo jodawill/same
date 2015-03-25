@@ -58,7 +58,8 @@ int draw_logo() {
 int draw_hst() {
  attron(COLOR_PAIR(20));
  if (highscore <= 0) {
-  mvprintw(height-6,width+1,"Highscore not set.");
+  mvprintw(height-10,width+1,"Highscore:");
+  mvprintw(height-9,width+1,"  Not set");
   return 1;
  }
  int h;
@@ -67,12 +68,12 @@ int draw_hst() {
  } else {
   h = display_height;
  }
+ mvprintw(h-10,width+1,"                 ");
+ mvprintw(h-9,width+1,"                 ");
  mvprintw(h-8,width+1,"                 ");
- mvprintw(h-7,width+1,"                 ");
- mvprintw(h-6,width+1,"                 ");
- mvprintw(h-8,width+1,"Highscore:");
- mvprintw(h-7,width+3,"%s",hsn);
- mvprintw(h-6,width+3,"%i",highscore);
+ mvprintw(h-10,width+1,"Highscore:");
+ mvprintw(h-9,width+3,"%s",hsn);
+ mvprintw(h-8,width+3,"%i",highscore);
  move(y,x);
  return 0;
 }
@@ -110,6 +111,11 @@ int draw_score() {
  }
  mvprintw(h-1,width+1,"                             ");
  mvprintw(h-1,width+1,"Score: %i",score);
+ if (easy) {
+  mvprintw(h-6,width+1,"Difficulty: Easy");
+ } else {
+  mvprintw(h-6,width+1,"Difficulty: Hard");
+ }
  return 0;
 }
 
