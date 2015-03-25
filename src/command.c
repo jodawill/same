@@ -16,12 +16,32 @@ int draw_board() {
  return 0;
 }
 
+bool confirm(const char* str) {
+ char d[1024];
+ strcpy(d,str);
+ strcat(d," (y/n)");
+ draw_command(d);
+ char c;
+ for (c = getchar(); c != 'y' && c!= 'Y' && c!= 'n' && c != 'N';
+      c = getchar()) {
+  draw_command(d);
+ }
+ clear_command();
+ return (c == 'y' || c == 'Y');
+}
+
 int draw_undo() {
  attron(COLOR_PAIR(20));
- mvprintw(height-4,width+1,"                     ");
- mvprintw(height-3,width+1,"                     ");
- mvprintw(height-4,width+1,"Undos available: %i",undonum);
- mvprintw(height-3,width+1,"Redos available: %i",redonum);
+ int h;
+ if (height >= display_height) {
+  h = height;
+ } else {
+  h = display_height;
+ }
+ mvprintw(h-4,width+1,"                     ");
+ mvprintw(h-3,width+1,"                     ");
+ mvprintw(h-4,width+1,"Undos available: %i",undonum);
+ mvprintw(h-3,width+1,"Redos available: %i",redonum);
  move(y,x);
 
  return 0;
@@ -41,12 +61,18 @@ int draw_hst() {
   mvprintw(height-6,width+1,"Highscore not set.");
   return 1;
  }
- mvprintw(height-8,width+1,"                 ");
- mvprintw(height-7,width+1,"                 ");
- mvprintw(height-6,width+1,"                 ");
- mvprintw(height-8,width+1,"Highscore:");
- mvprintw(height-7,width+3,"%s",hsn);
- mvprintw(height-6,width+3,"%i",highscore);
+ int h;
+ if (height >= display_height) {
+  h = height;
+ } else {
+  h = display_height;
+ }
+ mvprintw(h-8,width+1,"                 ");
+ mvprintw(h-7,width+1,"                 ");
+ mvprintw(h-6,width+1,"                 ");
+ mvprintw(h-8,width+1,"Highscore:");
+ mvprintw(h-7,width+3,"%s",hsn);
+ mvprintw(h-6,width+3,"%i",highscore);
  move(y,x);
  return 0;
 }
@@ -76,8 +102,14 @@ int draw_error(const char *text) {
 
 int draw_score() {
  attron(COLOR_PAIR(20));
- mvprintw(height-1,width+1,"                             ");
- mvprintw(height-1,width+1,"Score: %i",score);
+ int h;
+ if (height >= display_height) {
+  h = height;
+ } else {
+  h = display_height;
+ }
+ mvprintw(h-1,width+1,"                             ");
+ mvprintw(h-1,width+1,"Score: %i",score);
  return 0;
 }
 
@@ -103,7 +135,9 @@ int command_wait() {
  
  if (strcmp(key,"new") == 0) {
   clear_command();
-  reset_board();
+  if (confirm("Are you sure you want to start a new game?")) {
+   reset_board();
+  }
   return 0;
  }
  if (strcmp(key,"") == 0) {
@@ -152,8 +186,28 @@ int command_wait() {
   }
   return 0;
  }
+ char str[5];
+ strncpy(str,key,4);
+ if (strcmp(str,"setw") == 0) {
+  if (!confirm("Setting the width will reset the game. Continue?")) {
+   return 0;
+  }
+  char w[strlen(key-5)];
+  strncpy(w,&key[5],strlen(key)-5);
+  set_width(atoi(w));
+  return 0;
+ }
+ if (strcmp(str,"seth") == 0) {
+  if (!confirm("Setting the height will reset the game. Continue?")) {
+   return 0;
+  }
+  char h[strlen(key-5)];
+  strncpy(h,&key[5],strlen(key)-5);
+  set_height(atoi(h));
+  return 0;
+ }
 
- // Clear command line
+ // If we haven't found a command by now, the input must be invalid
  char text[1024] = "";
  strcat(text,"Not a command: ");
  strcat(text,key);
@@ -220,6 +274,13 @@ int cursor_wait() {
    }
    case 'j': {
     if (y < height - 1) y++;
+    break;
+   }
+   case 'n': {
+    clear_command();
+    if (confirm("Are you sure you want to start a new game?")) {
+     reset_board();
+    }
     break;
    }
   }

@@ -4,13 +4,17 @@
 #include <unistd.h>
 #include <time.h>
 
-static int width = 32;
-static int height = 16;
-int board[32][16];
-int board_undo[1024][32][16];
+int width;
+int height;
+int max_width, max_height;
+int board[1024][1024];
+int board_undo[1024][1024][1024];
 static int blocknum = 4;
 char hsn[14];
 
+int set_width(int w);
+int set_height(int h);
+int display_height, display_width;
 char hst_fn[1024];
 bool easy;
 int highscore;
