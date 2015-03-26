@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include <ncurses.h>
-#include <strings.h>
+#include <curses.h>
+#include <string.h>
 #include <unistd.h>
 #include <time.h>
 
