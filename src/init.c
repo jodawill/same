@@ -1,7 +1,11 @@
 #include "same.h"
 
-int get_rand(int cap) {
- return rand() % cap;
+int get_rand(int n) {
+ int x = rand();
+ while (n < RAND_MAX && x >= RAND_MAX - (RAND_MAX %n)) {
+  x = rand();
+ }
+ return x%n;
 }
 
 int init() {
