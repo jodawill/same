@@ -2,6 +2,26 @@
 
 This is a SameGame clone with vi-like commands.
 
+## Compiling
+
+To compile on a Mac, you will have to have XCode and ncurses installed.
+
+To install ncurses:
+
+````
+curl -O ftp://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz
+tar -xzvf ncurses-5.9.tar.gz
+cd ./ncurses-5.9
+./configure --prefix=/usr/local \
+  --without-cxx --without-cxx-binding --without-ada --without-progs --without-curses-h \
+  --with-shared --without-debug \
+  --enable-widec --enable-const --enable-ext-colors --enable-sigwinch --enable-wgetch-events \
+make
+sudo make install
+````
+
+Once you have these installed, just type 'make' to compile and './same' to run.
+
 ##Controls
 
 To navigate, you may either use the arrows or 'hjkl'. To delete a section of blocks, press &lt;enter&gt;, 'dd', or 'x'.
