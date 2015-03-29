@@ -86,6 +86,10 @@ int load_game(char in[]) {
  strcat(sfn,".sav");
 
  FILE *sgf = fopen(sfn,"r");
+ if (sgf == NULL) {
+  draw_error("Unable to open saved game file.");
+  return 1;
+ }
 
  int t_width, t_height, t_score, t_undonum, t_redonum, t_easy, t_god;
  int t_score_undo[1024];
