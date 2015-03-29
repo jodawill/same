@@ -22,11 +22,24 @@ int save_game(char in[]) {
 
  FILE *sgf = fopen(sfn,"w");
 
- fprintf(sgf,"%d\n%d\n%d\n%d\n%d\n",width,height,score,(int)easy,(int)god);
+ fprintf(sgf,"%d\n%d\n%d\n%d\n%d\n%d\n%d\n",width,height,score,undonum,redonum,(int)easy,(int)god);
+
+ for (int u = 0; u <= undonum+redonum; u++) {
+  fprintf(sgf,"%d\n",score_undo[u]);
+ }
+
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
-   // Add 1 to the block number so we don't print a -1
    fprintf(sgf,"%c",(char)board[col][row]+1);
+  }
+ }
+
+ for (int u = 0; u <= undonum+redonum; u++) {
+  for (int col = 0; col < width; col++) {
+   for (int row = 0; row < height; row++) {
+    // Add 1 to the block number so we don't print a -1
+    fprintf(sgf,"%c",(char)board_undo[u][col][row]+1);
+   }
   }
  }
 
@@ -69,34 +82,65 @@ int load_game(char in[]) {
 
  FILE *sgf = fopen(sfn,"r");
 
- int t_width, t_height, t_score, t_easy, t_god;
+ int t_width, t_height, t_score, t_undonum, t_redonum, t_easy, t_god;
+ int t_score_undo[1024];
 
  fscanf(sgf,"%d",&t_width);
  fscanf(sgf,"%d",&t_height);
  fscanf(sgf,"%d",&t_score);
+ fscanf(sgf,"%d",&t_undonum);
+ fscanf(sgf,"%d",&t_redonum);
  fscanf(sgf,"%d",&t_easy);
  fscanf(sgf,"%d",&t_god);
 
+ for (int u = 0; u <= t_undonum+t_redonum; u++) {
+  fscanf(sgf,"%d",&t_score_undo[u]);
+ }
+
  int t_board[64][64];
+ int t_board_u[128][64][64];
 
  if (feof(sgf)) lge();
  fgetc(sgf);
+
  for (int col = 0; col < t_width; col++) {
   for (int row = 0; row < t_height; row++) {
-   t_board[col][row] = (int)fgetc(sgf)-1;
-   if (t_board[col][row]+1 == EOF) return lge();
+   t_board[col][row] = fgetc(sgf)-1;
+  }
+ }
+
+ for (int u = 0; u <= t_undonum+t_redonum; u++) {
+  for (int col = 0; col < t_width; col++) {
+   for (int row = 0; row < t_height; row++) {
+    t_board_u[u][col][row] = (int)fgetc(sgf)-1;
+    if (t_board_u[u][col][row]+1 == EOF) return lge();
+   }
   }
  }
 
  width = t_width;
  height = t_height;
  score = t_score;
+ undonum = t_undonum;
+ redonum = t_redonum;
  easy = (bool)t_easy;
  god = (bool)t_god;
 
+ for (int u = 0; u <= undonum+redonum; u++) {
+  score_undo[u] = t_score_undo[u];
+ }
+
  for (int col = 0; col < width; col++) {
-  for (int row = 0; row < height; row++) {
+  for (int row =0; row < height; row++) {
    board[col][row] = t_board[col][row];
+  }
+ }
+
+ for (int u = 0; u <= undonum+redonum; u++) {
+  for (int col = 0; col < width; col++) {
+   for (int row = 0; row < height; row++) {
+    board_undo[u][col][row] = t_board_u[u][col][row];
+   }
   }
  }
 
