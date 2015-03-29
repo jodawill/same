@@ -20,8 +20,8 @@ int save_game(char in[]) {
  strcat(sfn,name);
  strcat(sfn,".sav");
 
- if (name[0] == '.' && name[1] == '.') {
-  draw_error("Game names are not allowed to start with ..");
+ if (strstr(name,"..") != NULL) {
+  draw_error("Game names are not allowed to contain two dots.");
   return 1;
  }
 
