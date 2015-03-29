@@ -20,6 +20,11 @@ int save_game(char in[]) {
  strcat(sfn,name);
  strcat(sfn,".sav");
 
+ if (name[0] == '.' && name[1] == '.') {
+  draw_error("Game names are not allowed to start with ..");
+  return 1;
+ }
+
  FILE *sgf = fopen(sfn,"w");
 
  fprintf(sgf,"%d\n%d\n%d\n%d\n%d\n%d\n%d\n",width,height,score,undonum,redonum,(int)easy,(int)god);
