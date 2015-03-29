@@ -115,6 +115,7 @@ int command_wait() {
   return 0;
  }
  strncpy(str,key,4);
+ str[4] = '\0';
  if (strcmp(str,"setw") == 0) {
   if (!confirm("Setting the width will reset the game. Continue?")) {
    return 0;
