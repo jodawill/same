@@ -32,16 +32,14 @@ int get_hsn() {
 }
 
 int read_hst() {
+ highscore = 0;
+ set_hst_fn();
  FILE *hstf = fopen(hst_fn,"r");
  if (hstf == NULL) {
-  strcpy(hsn,"");
-  highscore = 0;
   return 1;
  }
- char hs[10];
- fgets(hsn,(sizeof hsn)-2,hstf);
- fgets(hs,10,hstf);
- highscore = atoi(hs);
+ fscanf(hstf,"%s",hsn);
+ fscanf(hstf,"%i",&highscore);
  fclose(hstf);
  return 0;
 }

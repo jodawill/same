@@ -26,10 +26,12 @@ int draw_logo() {
 }
 
 int draw_hst() {
+ read_hst();
  attron(COLOR_PAIR(20));
  if (highscore <= 0) {
   mvprintw(height-10,width+1,"Highscore:");
-  mvprintw(height-9,width+1,"  Not set");
+  mvprintw(height-9,width+1,"  Not set  ");
+  mvprintw(height-8,width+1,"           ");
   return 1;
  }
  int h;

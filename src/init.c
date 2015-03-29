@@ -22,8 +22,6 @@ int init() {
  reset_board();
  cursor_wait();
 
- printf("%s",hst_fn);
-
  return 0;
 }
 

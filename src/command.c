@@ -7,6 +7,7 @@ int command_wait() {
  noecho();
  int a,b;
  getmaxyx(stdscr,a,b);
+ char str[32];
  
  if (strcmp(key,"new") == 0) {
   clear_command();
@@ -31,16 +32,44 @@ int command_wait() {
   return 0;
  }
  if (strcmp(key,"q") == 0) return 1;
- if (strcmp(key,"x") == 0) {
+ if (key[0] == 'x') {
   // Save game
-  draw_error("Save not yet implemented.");
-  sleep(1);
-  return 1;
+  if (strcmp(key,"x") == 0) {
+   save_game("");
+   return 1;
+  }
+  if (key[1] == ' ') {
+   strncpy(str,&key[2],strlen(key)-1);
+   str[strlen(key)-2] = '\0';
+   save_game(str);
+   return 1;
+  }
  }
- if (strcmp(key,"w") == 0) {
+ if (key[0] == 'w') {
   // Save game
-  draw_error("Save not yet implemented.");
-  return 0;
+  if (strcmp(key,"w") == 0) {
+   save_game("");
+   return 0;
+  }
+  if (key[1] == ' ') {
+   strncpy(str,&key[2],strlen(key)-1);
+   str[strlen(key)-2] = '\0';
+   save_game(str);
+   return 0;
+  }
+ }
+ if (key[0] == 'o') {
+  // Open saved game
+  if (strcmp(key,"o") == 0) {
+   load_game("");
+   return 0;
+  }
+  if (key[1] == ' ') {
+   strncpy(str,&key[2],strlen(key)-1);
+   str[strlen(key)-2] = '\0';
+   load_game(str);
+   return 0;
+  }
  }
  if (strcmp(key,"easy") == 0) {
   if (!easy || god) {
@@ -85,7 +114,6 @@ int command_wait() {
   }
   return 0;
  }
- char str[5];
  strncpy(str,key,4);
  if (strcmp(str,"setw") == 0) {
   if (!confirm("Setting the width will reset the game. Continue?")) {

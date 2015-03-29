@@ -48,8 +48,6 @@ int reset_board() {
  score = 0;
  n = 0;
  copy_board();
- set_hst_fn();
- read_hst();
  draw_logo();
  draw_hst();
  draw_score();

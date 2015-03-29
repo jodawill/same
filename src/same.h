@@ -84,6 +84,8 @@ int init();
 
 // save.c
 int copy_board();
+int load_game(char in[]);
 int redo();
+int save_game(char in[]);
 int undo();
 

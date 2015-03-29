@@ -3,7 +3,7 @@
 +---------------------------------------------------------+
 
 // General
-* Implement game saving feature
+* Add undo history to saved games
 * Check whether game is in progress and confirm before quitting
 * Display score potential
 
