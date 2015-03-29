@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/stat.h>
 
 int width;
 int height;
@@ -11,6 +12,9 @@ int board[1024][1024];
 int board_undo[1024][1024][1024];
 static int blocknum = 4;
 char hsn[14];
+
+// hst.c
+int set_hst_fn();
 
 bool gameover;
 int set_width(int w);

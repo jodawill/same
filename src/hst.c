@@ -1,5 +1,17 @@
 #include "same.h"
 
+int set_hst_fn() {
+ char *homedir = getenv("HOME");
+ char settings[1024];
+ char dir[1024];
+ strcpy(dir,homedir);
+ strcat(dir,"/.same");
+ mkdir(dir,S_IRWXU);
+ sprintf(hst_fn,"%s/.hst-%d-%d-%d",dir,(int)easy,width,height);
+
+ return 0;
+}
+
 int get_hsn() {
  clear_command();
  int a,b;

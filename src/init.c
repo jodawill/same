@@ -26,9 +26,6 @@ int init() {
  define_colors();
  draw_logo();
  keypad(stdscr,true);
- char *homedir = getenv("HOME");
- strcpy(hst_fn,homedir);
- strcat(hst_fn,"/.samehst");
 
  reset_board();
  cursor_wait();
