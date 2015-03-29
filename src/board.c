@@ -1,5 +1,21 @@
 #include "same.h"
 
+int draw_board() {
+ for (int col = 0; col < width; col++) {
+  for (int row = 0; row < height; row++) {
+   if (board[col][row] < 0) {
+    attron(COLOR_PAIR(20));
+    mvprintw(row,col," ");
+   } else {
+    attron(COLOR_PAIR(board[col][row]+1));
+    mvprintw(row,col,"%c",blocks[board[col][row]+1]);
+   }
+  }
+ }
+ refresh();
+ return 0;
+}
+
 int reset_board() {
  char eb = get_rand(blocknum);
  for (int col = 0; col < width; col++) {

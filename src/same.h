@@ -27,8 +27,10 @@ int score_undo[1024];
 int n, score;
 static char blocks[16] = " abcdABCD";
 bool hl_board[64][64];
+char dir[1024];
 
 // board.c
+int draw_board();
 bool is_block_alone(int col, int row);
 bool is_game_over();
 int reset_board();
@@ -41,9 +43,14 @@ int define_colors();
 // command.c
 int clear_command();
 int command_wait();
-bool confirm(const char* str);
 int cursor_wait();
-int draw_board();
+
+// common.c
+bool confirm(const char* str);
+int get_rand(int n);
+int set_dir();
+
+// draw.c
 int draw_command(const char* text);
 int draw_error();
 int draw_hst();
@@ -73,7 +80,6 @@ int write_hst();
 
 // init.c
 int cleanup();
-int get_rand(int n);
 int init();
 
 // save.c

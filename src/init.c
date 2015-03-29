@@ -1,13 +1,5 @@
 #include "same.h"
 
-int get_rand(int n) {
- int x = rand();
- while (n < RAND_MAX && x >= RAND_MAX - (RAND_MAX %n)) {
-  x = rand();
- }
- return x%n;
-}
-
 int init() {
  god = false;
  easy = false;
