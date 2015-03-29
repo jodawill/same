@@ -5,5 +5,4 @@
 // General
 * Implement game saving feature
 * Check whether game is in progress and confirm before quitting
-* Use different highscore table for each board size and difficulty
 
