@@ -50,6 +50,7 @@ int save_game(char in[]) {
 
  fclose(sgf);
 
+ saved = true;
  char str[32];
  strcpy(str,"Saved game as '");
  strcat(str,name);
@@ -182,6 +183,7 @@ int copy_board() {
 }
 
 int redo() {
+ saved = false;
  if (redonum <= 0) {
   draw_command("Already at the latest saved state.");
   return 1;
@@ -210,6 +212,7 @@ int undo() {
   return 1;
  }
 
+ saved = false;
  gameover = false;
  if (redonum <= 0) copy_board();
  undonum--;

@@ -31,7 +31,17 @@ int command_wait() {
   redo();
   return 0;
  }
- if (strcmp(key,"q") == 0) return 1;
+ if (strcmp(key,"q") == 0) {
+  if (saved) {
+   return 1;
+  } else {
+   draw_error("No write since last change (add ! to override)");
+   return 0;
+  }
+ }
+ if (strcmp(key,"q!") == 0 ) {
+  return 1;
+ }
  if (key[0] == 'x') {
   // Save game
   if (strcmp(key,"x") == 0) {

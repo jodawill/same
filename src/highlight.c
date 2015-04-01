@@ -168,6 +168,7 @@ int delblock(int x, int y) {
   collapse();
   move(y,x);
   refresh();
+  saved = false;
   if (is_game_over()) end_game();
  }
 

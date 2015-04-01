@@ -28,6 +28,7 @@ int n, score;
 static char blocks[16] = " abcdABCD";
 bool hl_board[64][64];
 char dir[1024];
+bool saved;
 
 // board.c
 int draw_board();
