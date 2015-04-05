@@ -33,9 +33,9 @@ bool move_horizontal(int col) {
 }
 
 bool is_col_empty(int col) {
- for (int r = height-1; r > 0; r--) {
+ for (int r = height-1; r >= 0; r--) {
   if (board[col][r] >= 0) return false;
-  else if (r == 1) return true;
+  else if (r == 0) return true;
  }
  return false;
 }
