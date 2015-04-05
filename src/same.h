@@ -62,6 +62,10 @@ int draw_undo();
 // endgame.c
 int end_game();
 
+// graphics.c
+int draw_block(int col,int row,int block);
+int draw_command_prompt();
+
 // highlight.c
 int check_hl(int x,int y,char bl,bool remq);
 int collapse();

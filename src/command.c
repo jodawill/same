@@ -162,12 +162,7 @@ int cursor_wait() {
   switch (getch()) {
    case ':': {
     clear_command();
-    int a,b;
-    getmaxyx(stdscr,a,b);
-    attron(COLOR_PAIR(20));
-    mvprintw(a - 1,0,":");
-    move(a-1,1);
-    refresh();
+    draw_command_prompt();
     if (command_wait() == 1) {
      return 0;
     }
