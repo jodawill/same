@@ -7,7 +7,7 @@ int draw_board() {
     attron(COLOR_PAIR(20));
     mvprintw(row,col," ");
    } else {
-    draw_block(col,row,board[col][row]);
+    draw_block(col,row,board[col][row],false);
    }
   }
  }
@@ -26,7 +26,7 @@ int reset_board() {
    if (god) {
     board[col][row] = eb;
    }
-   draw_block(col,row,board[col][row]);
+   draw_block(col,row,board[col][row],false);
    hled[col][row] = false;
   }
  }

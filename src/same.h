@@ -63,7 +63,7 @@ int draw_undo();
 int end_game();
 
 // graphics.c
-int draw_block(int col,int row,int block);
+int draw_block(int col,int row,int block,bool hled);
 int draw_command_prompt();
 
 // highlight.c
