@@ -47,6 +47,8 @@ int draw_hst() {
  mvprintw(h-9,width+3,"%s",hsn);
  mvprintw(h-8,width+3,"%i",highscore);
  move(y,x);
+ refresh();
+
  return 0;
 }
 

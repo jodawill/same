@@ -4,8 +4,7 @@ int draw_board() {
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
    if (board[col][row] < 0) {
-    attron(COLOR_PAIR(20));
-    mvprintw(row,col," ");
+    draw_clear_block(col,row);
    } else {
     draw_block(col,row,board[col][row],false);
    }
@@ -41,18 +40,16 @@ int reset_board() {
  display_height = 11;
  max_width = b-display_width;
  max_height = a;
- move(y,x);
+ move_cursor(x,y);
  undonum = 0;
  redonum = 0;
  score = 0;
  n = 0;
  copy_board();
  draw_logo();
- draw_hst();
  draw_score();
  draw_undo();
- refresh();
-
+ draw_hst();
 
  return 0;
 }

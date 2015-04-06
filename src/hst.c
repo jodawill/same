@@ -9,24 +9,13 @@ int set_hst_fn() {
 
 int get_hsn() {
  clear_command();
- int a,b;
- getmaxyx(stdscr,a,b);
- attron(COLOR_PAIR(20));
- mvprintw(a-1,0,"New highscore! Name: ");
- echo();
- strcpy(hsn,"");
- move(a-1,21);
- getnstr(hsn,(sizeof hsn)-4);
+ prompt_str("New highscore! Name:",hsn,sizeof hsn);
  while (strcmp(hsn,"") == 0) {
   draw_error("Name is required");
   getch();
   clear_command();
-  mvprintw(a-1,0,"New highscore! Name: ");
-  move(a-1,21);
-  getnstr(hsn,(sizeof hsn)-4);
+  prompt_str("New highscore! Name:",hsn,sizeof hsn);
  }
- noecho();
- clear_command();
  write_hst();
  return 0;
 }
@@ -36,9 +25,14 @@ int read_hst() {
  set_hst_fn();
  FILE *hstf = fopen(hst_fn,"r");
  if (hstf == NULL) {
+  if (access(hst_fn,F_OK) != -1) {
+   draw_error("Highscore file exists, but cannot be opened to read");
+  } else {
+   draw_command("Highscore file does not exist");
+  }
   return 1;
  }
- fscanf(hstf,"%s",hsn);
+ fgets(hsn,sizeof hsn,hstf);
  fscanf(hstf,"%i",&highscore);
  fclose(hstf);
  return 0;
@@ -46,7 +40,10 @@ int read_hst() {
 
 int write_hst() {
  FILE *hstf = fopen(hst_fn,"w");
- if (hstf == NULL) return 1;
+ if (hstf == NULL) {
+   draw_error("Could not open highscore file to write");
+   return 1;
+ }
  if (score > highscore) highscore = score;
  fprintf(hstf,"%s\n",hsn);
  fprintf(hstf,"%i\n",highscore);

@@ -64,7 +64,10 @@ int end_game();
 
 // graphics.c
 int draw_block(int col,int row,int block,bool hled);
+int draw_clear_block(int col,int row);
 int draw_command_prompt();
+int move_cursor(int col,int row);
+int prompt_str(const char msg[],char outstr[],int strn);
 
 // highlight.c
 int check_hl(int x,int y,char bl,bool remq);
