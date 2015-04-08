@@ -52,10 +52,7 @@ int get_rand(int n);
 int set_dir();
 
 // draw.c
-int draw_command(const char* text);
-int draw_error();
 int draw_hst();
-int draw_logo();
 int draw_score();
 int draw_undo();
 
@@ -65,7 +62,11 @@ int end_game();
 // graphics.c
 int draw_block(int col,int row,int block,bool hled);
 int draw_clear_block(int col,int row);
+int draw_command(const char* text);
 int draw_command_prompt();
+int draw_display(int row,const char* msg);
+int draw_error();
+int draw_logo();
 int move_cursor(int col,int row);
 int prompt_str(const char msg[],char outstr[],int strn);
 
