@@ -10,7 +10,7 @@ int draw_board() {
    }
   }
  }
- refresh();
+
  return 0;
 }
 

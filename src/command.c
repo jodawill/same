@@ -150,7 +150,6 @@ int command_wait() {
  strcat(text,"Not a command: ");
  strcat(text,key);
  draw_error(text);
- refresh();
 
  return 0;
 }
@@ -219,9 +218,7 @@ int cursor_wait() {
     break;
    }
   }
-  move(y,x);
   highlight(x,y);
-  refresh();
  }
 }
 

@@ -9,7 +9,7 @@ int end_game() {
 
  struct timespec time1, time2;
  time1.tv_sec = 0;
- time1.tv_nsec = 500;
+ time1.tv_nsec = 20000000;
  nanosleep(&time1,&time2);
  for (int u = undonum-1; u >= 0; u--) {
   for (int col = 0; col < width; col++) {
@@ -18,7 +18,7 @@ int end_game() {
     draw_block(col,row,board_undo[u][col][row],false);
    }
   }
-  refresh();
+  refresh_screen();
   nanosleep(&time1,&time2);
  }
  for (int u = 0; u <= undonum; u++) {
@@ -28,7 +28,7 @@ int end_game() {
     draw_block(col,row,board_undo[u][col][row],false);
    }
   }
-  refresh();
+  refresh_screen();
   nanosleep(&time1,&time2);
  }
 

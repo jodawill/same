@@ -201,7 +201,6 @@ int redo() {
  redonum--;
  draw_command("Reverted to next board state.");
  if (is_game_over()) end_game();
- refresh();
 
  return 0;
 }
@@ -228,7 +227,6 @@ int undo() {
  draw_score();
  redonum++;
  draw_command("Reverted to last change.");
- refresh();
 
  return 0;
 }

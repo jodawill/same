@@ -57,7 +57,6 @@ int collapse() {
  collapse_horizontal();
 
  highlight_none();
- refresh();
 
  return 0;
 }
@@ -65,14 +64,11 @@ int collapse() {
 int highlight_none() {
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
+   hled[col][row] = false;
    if (board[col][row] > -1) {
-    attron(COLOR_PAIR(1 + board[col][row]));
-    mvprintw(row,col,"%c",blocks[1 + board[col][row]]);
-    hled[col][row] = false;
+    draw_block(col,row,board[col][row],false);
    } else {
-    attron(COLOR_PAIR(20));
-    mvprintw(row,col," ");
-    hled[col][row] = false;
+    draw_clear_block(col,row);
    }
   }
  }
@@ -86,14 +82,11 @@ int check_hl(int x, int y, char bl, bool remq) {
      && board[x-1][y] > -1) {
   if (remq) {
    n++;
-   attron(COLOR_PAIR(20));
-   mvprintw(y,x-1," ");
    board[x-1][y] = -1;
    hled[x-1][y] = true;
    check_hl(x-1,y,bl,true);
   } else {
-   attron(COLOR_PAIR(blocknum + 1 + board[x][y]));
-   mvprintw(y,x-1,"%c",blocks[board[x][y]+blocknum+1]);
+   draw_block(x-1,y,board[x][y],true);
    hled[x-1][y] = true;
    check_hl(x-1,y,bl,false);
   }
@@ -103,14 +96,12 @@ int check_hl(int x, int y, char bl, bool remq) {
      && board[x+1][y] > -1) {
   if (remq) {
    n++;
-   attron(COLOR_PAIR(20));
-   mvprintw(y,x+1," ");
+   draw_clear_block(x+1,y);
    board[x+1][y] = -1;
    hled[x+1][y] = true;
    check_hl(x+1,y,bl,true);
   } else {
-   attron(COLOR_PAIR(blocknum + 1 + board[x][y]));
-   mvprintw(y,x+1,"%c",blocks[board[x][y]+blocknum+1]);
+   draw_block(x+1,y,board[x][y],true);
    hled[x+1][y] = true;
    check_hl(x+1,y,bl,false);
   }
@@ -120,14 +111,12 @@ int check_hl(int x, int y, char bl, bool remq) {
      && board[x][y-1] > -1) {
   if (remq) {
    n++;
-   attron(COLOR_PAIR(20));
-   mvprintw(y-1,x," ");
+   draw_clear_block(x,y-1);
    board[x][y-1] = -1;
    hled[x][y-1] = true;
    check_hl(x,y-1,bl,true);
   } else {
-   attron(COLOR_PAIR(blocknum + 1 + board[x][y]));
-   mvprintw(y-1,x,"%c",blocks[board[x][y]+blocknum+1]);
+   draw_block(x,y-1,board[x][y],true);
    hled[x][y-1] = true;
    check_hl(x,y-1,bl,false);
   }
@@ -137,14 +126,12 @@ int check_hl(int x, int y, char bl, bool remq) {
      && board[x][y+1] > -1) {
   if (remq) {
    n++;
-   attron(COLOR_PAIR(20));
-   mvprintw(y+1,x," ");
+   draw_clear_block(x,y+1);
    board[x][y+1] = -1;
    hled[x][y+1] = true;
    check_hl(x,y+1,bl,true);
   } else {
-   attron(COLOR_PAIR(blocknum + 1 + board[x][y]));
-   mvprintw(y+1,x,"%c",blocks[board[x][y]+blocknum+1]);
+   draw_block(x,y+1,board[x][y],true);
    hled[x][y+1] = true;
    check_hl(x,y+1,bl,false);
   }
@@ -166,8 +153,6 @@ int delblock(int x, int y) {
   draw_score();
   n = 0;
   collapse();
-  move(y,x);
-  refresh();
   saved = false;
   if (is_game_over()) end_game();
  }
@@ -179,14 +164,11 @@ int highlight(int x, int y) {
  draw_undo();
  if (is_block_alone(x,y)) {
   highlight_none();
-  move(y,x);
   return 1;
  }
  if (board[x][y] < 0) return 1;
  highlight_none();
  check_hl(x,y,board[x][y],false);
- move(y,x);
- refresh();
 
  return 0;
 }

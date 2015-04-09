@@ -69,6 +69,7 @@ int draw_error();
 int draw_logo();
 int move_cursor(int col,int row);
 int prompt_str(const char msg[],char outstr[],int strn);
+int refresh_screen();
 
 // highlight.c
 int check_hl(int x,int y,char bl,bool remq);
