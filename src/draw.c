@@ -54,9 +54,9 @@ int draw_score() {
   draw_display(h-6,"Difficulty: God Mode");
  }
  else {
-  if (easy) {
+  if (difficulty == DIF_EASY) {
    draw_display(h-6,"Difficulty: Easy");
-  } else {
+  } else if (difficulty == DIF_HARD) {
    draw_display(h-6,"Difficulty: Hard");
   }
  }

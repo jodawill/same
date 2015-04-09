@@ -5,12 +5,15 @@
 #include <time.h>
 #include <sys/stat.h>
 
+#define DIF_EASY 1
+#define DIF_HARD 0
+
 // Global variables
 bool gameover;
 int x,y;
 int display_height, display_width;
 char hst_fn[1024];
-bool easy;
+int difficulty;
 bool god;
 int highscore;
 bool hled[1024][1024];

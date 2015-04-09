@@ -19,7 +19,7 @@ int reset_board() {
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
    board[col][row] = get_rand(blocknum);
-   if (easy && get_rand(4) == 1) {
+   if (difficulty == DIF_EASY && get_rand(4) == 1) {
     board[col][row] = eb;
    }
    if (god) {

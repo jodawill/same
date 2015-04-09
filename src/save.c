@@ -27,7 +27,7 @@ int save_game(char in[]) {
 
  FILE *sgf = fopen(sfn,"w");
 
- fprintf(sgf,"%d\n%d\n%d\n%d\n%d\n%d\n%d\n",width,height,score,undonum,redonum,(int)easy,(int)god);
+ fprintf(sgf,"%d\n%d\n%d\n%d\n%d\n%d\n%d\n",width,height,score,undonum,redonum,(int)difficulty,(int)god);
 
  for (int u = 0; u <= undonum+redonum; u++) {
   fprintf(sgf,"%d\n",score_undo[u]);
@@ -92,7 +92,7 @@ int load_game(char in[]) {
   return 1;
  }
 
- int t_width, t_height, t_score, t_undonum, t_redonum, t_easy, t_god;
+ int t_width, t_height, t_score, t_undonum, t_redonum, t_difficulty, t_god;
  int t_score_undo[1024];
 
  fscanf(sgf,"%d",&t_width);
@@ -100,7 +100,7 @@ int load_game(char in[]) {
  fscanf(sgf,"%d",&t_score);
  fscanf(sgf,"%d",&t_undonum);
  fscanf(sgf,"%d",&t_redonum);
- fscanf(sgf,"%d",&t_easy);
+ fscanf(sgf,"%d",&t_difficulty);
  fscanf(sgf,"%d",&t_god);
 
  for (int u = 0; u <= t_undonum+t_redonum; u++) {
@@ -133,7 +133,7 @@ int load_game(char in[]) {
  score = t_score;
  undonum = t_undonum;
  redonum = t_redonum;
- easy = (bool)t_easy;
+ difficulty = t_difficulty;
  god = (bool)t_god;
 
  for (int u = 0; u <= undonum+redonum; u++) {

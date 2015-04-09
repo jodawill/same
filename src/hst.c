@@ -2,7 +2,7 @@
 
 int set_hst_fn() {
  set_dir();
- sprintf(hst_fn,"%s/.hst-%d-%d-%d",dir,(int)easy,width,height);
+ sprintf(hst_fn,"%s/.hst-%d-%d-%d",dir,(int)difficulty,width,height);
 
  return 0;
 }

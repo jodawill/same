@@ -2,7 +2,7 @@
 
 int init() {
  god = false;
- easy = false;
+ difficulty = DIF_HARD;
  highlight_none();
  x = 0;
  y = 0;

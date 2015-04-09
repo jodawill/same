@@ -82,14 +82,14 @@ int command_wait() {
   }
  }
  if (strcmp(key,"easy") == 0) {
-  if (!easy || god) {
+  if (difficulty == DIF_HARD || god) {
    if (!gameover &&
        !confirm("Changing difficulty will reset the board. Continue?")) {
     return 0;
    }
    draw_command("Easy mode enabled.");
    god = false;
-   easy = true;
+   difficulty = DIF_EASY;
    reset_board();
   } else {
    draw_error("Already on easy mode.");
@@ -97,14 +97,14 @@ int command_wait() {
   return 0;
  }
  if (strcmp(key,"hard") == 0) {
-  if (easy || god) {
+  if (difficulty == DIF_EASY || god) {
    draw_command("Hard mode enabled");
    if (!gameover &&
        !confirm("Changing difficulty will reset the board. Continue?")) {
     return 0;
    }
    god = false;
-   easy = false;
+   difficulty = DIF_HARD;
    reset_board();
   } else {
    draw_error("Already on hard mode");
