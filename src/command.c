@@ -157,7 +157,7 @@ int command_wait() {
 int cursor_wait() {
  char c = '\0';
  while (true) {
-  switch (getch()) {
+  switch ((int)ask_char()) {
    case ':': {
     clear_command();
     draw_command_prompt();
@@ -175,7 +175,7 @@ int cursor_wait() {
     break;
    }
    case 'd': {
-    if (getch() != 'd') break;
+    if (ask_char() != 'd') break;
    }
    case 'x': {
    }

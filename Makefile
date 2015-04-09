@@ -2,7 +2,7 @@ NAME = same
 CC=gcc
 CFLAGS=-I. -lcurses
 DEPS = src/same.h
-OBJECTS = src/same.o src/common.o src/draw.o src/graphics.o src/hst.o src/endgame.o src/save.o src/colors.o src/highlight.o src/board.o src/command.o src/init.o
+OBJECTS = src/same.o src/common.o src/draw.o src/graphics.o src/hst.o src/endgame.o src/save.o src/colors.o src/highlight.o src/board.o src/command.o src/init.o src/sysdep.o
 
 .PHONY: clean make install uninstall
 

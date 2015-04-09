@@ -12,7 +12,7 @@ int get_hsn() {
  prompt_str("New highscore! Name:",hsn,sizeof hsn);
  while (strcmp(hsn,"") == 0) {
   draw_error("Name is required");
-  getch();
+  ask_char();
   clear_command();
   prompt_str("New highscore! Name:",hsn,sizeof hsn);
  }

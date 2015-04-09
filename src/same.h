@@ -99,3 +99,6 @@ int redo();
 int save_game(char in[]);
 int undo();
 
+// sysdep.c
+char ask_char();
+
