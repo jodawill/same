@@ -156,7 +156,6 @@ int command_wait() {
 
 int cursor_wait() {
  char c = '\0';
- move(y,x);
  while (true) {
   switch (getch()) {
    case ':': {
