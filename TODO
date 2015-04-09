@@ -3,9 +3,7 @@
 +---------------------------------------------------------+
 
 // General
-* Check whether game is in progress and confirm before quitting
 * Display score potential
-* Separate all graphic-related functions from logic
 * Separate the main loop from the logic so different event systems can
   can be used
 * draw.c probably needs to completely go away in favor of graphics.c, which
