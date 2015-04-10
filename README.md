@@ -1,5 +1,10 @@
 # SameGame
 
+ATTENTION: I didn't realize that I never uploaded graphics.c until I
+deleted my entire same directory to start fresh from the repository. The
+game won't work without this file. I will work as quickly as I can to
+recreate this.
+
 This is a SameGame clone with vi-like commands.
 
 ## Compiling
