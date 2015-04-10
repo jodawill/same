@@ -148,7 +148,6 @@ int delblock(int x, int y) {
  if (n > 1) {
   undonum++;
   redonum = 0;
-  attron(COLOR_PAIR(20));
   score += (n-1)*(n-1);
   draw_score();
   n = 0;

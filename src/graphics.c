@@ -1,5 +1,13 @@
 #include "same.h"
 
+int clear_all() {
+ #if defined(__NCURSES__)
+  erase();
+  return 0;
+ #endif
+ return -1;
+}
+
 int draw_block(int col,int row,int block,bool hled) {
  #if defined(__NCURSES__)
   if (hled) {
@@ -11,6 +19,7 @@ int draw_block(int col,int row,int block,bool hled) {
   }
   return 0;
  #endif
+ return -1;
 }
 
 int draw_clear_block(int col,int row){

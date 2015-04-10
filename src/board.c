@@ -74,7 +74,7 @@ bool is_game_over() {
 
 int set_width(int w) {
  if (w > 0 && w < max_width) {
-  erase();
+  clear_all();
   width = w;
   char cmd[1024];
   strcpy(cmd,"Board width set to ");
@@ -93,7 +93,7 @@ int set_width(int w) {
 
 int set_height(int h) {
  if (h > 0 && h < max_height) {
-  erase();
+  clear_all();
   height = h;
   char cmd[1024];
   strcpy(cmd,"Board height set to ");

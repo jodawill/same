@@ -1,11 +1,11 @@
 #define DIF_EASY 1
 #define DIF_HARD 0
 
-#if defined(__APPLE__) || defined(__linux__)
+#if defined(__PPLE__) || defined(__linux__)
  #define __NCURSES__
  #define __SUPPORTED__
 #endif
-#if defined(WIN16) || defined(WIN32) || defined(WIN64) || defined(MSDOS)
+#if defined(__APPLE__) || defined(WIN16) || defined(WIN32) || defined(WIN64) || defined(MSDOS)
  #warning "MS graphics libraries are not yet supported. Graphics and" \\
           "keyboard features will not work, but we will compile anyway."
  #define __SUPPORTED__
@@ -19,10 +19,25 @@
 #include <unistd.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <stdbool.h>
+#include <stdio.h>
 #if defined(__NCURSES__)
  #include <ncurses.h>
  #define COLOR_DEFAULT 20
  #define COLOR_ERROR   21
+#endif
+
+#ifndef KEY_UP
+ #define KEY_UP -2
+#endif
+#ifndef KEY_DOWN
+ #define KEY_DOWN -3
+#endif
+#ifndef KEY_LEFT
+ #define KEY_LEFT -4
+#endif
+#ifndef KEY_RIGHT
+ #define KEY_RIGHT -5
 #endif
 
 // Global variables
@@ -79,6 +94,7 @@ int draw_undo();
 int end_game();
 
 // graphics.c
+int clear_all();
 int draw_block(int col,int row,int block,bool hled);
 int draw_clear_block(int col,int row);
 int clear_command();

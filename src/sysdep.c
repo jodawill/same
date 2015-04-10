@@ -6,5 +6,6 @@ int ask_char() {
  #if defined(__NCURSES__)
   return getch();
  #endif
+ return -1;
 }
 
