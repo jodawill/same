@@ -17,6 +17,9 @@ int rest() {
   nanosleep(&time1,&time2);
   return 0;
  #endif
+ // If we can't find a suitable function to sleep less than a second, we'll
+ // fall back on sleep().
+ sleep(1);
  return -1;
 }
 

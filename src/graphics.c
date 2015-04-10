@@ -19,11 +19,11 @@ int clear_all() {
 int draw_block(int col,int row,int block,bool hled) {
  #if defined(__NCURSES__)
   if (hled) {
-   attron(COLOR_PAIR(board[col][row] + 1));
-   mvprintw(row,col,"%c",blocks[board[col][row] + blocknum + 1]);
+   attron(COLOR_PAIR(block + 1));
+   mvprintw(row,col,"%c",blocks[block + blocknum + 1]);
   } else {
-   attron(COLOR_PAIR(board[col][row] + 1));
-   mvprintw(row,col,"%c",blocks[board[col][row] + 1]);
+   attron(COLOR_PAIR(block + 1));
+   mvprintw(row,col,"%c",blocks[block + 1]);
   }
   return 0;
  #endif
