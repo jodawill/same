@@ -61,8 +61,6 @@ int highscore;
 bool hled[1024][1024]; // Stores whether a position is highlighted
 int width; // Board width. For screen width, get_max_x()
 int height; // Board height. For screen height, get_max_y()
-int max_width, max_height; // Deprecated; remove eventually. Use
-                           // get_max_x() and get_max_y() instead.
 int board[1024][1024]; // Stores value of each block on board. The
                        // actual character map is in blocks[int].
 int board_undo[1024][64][64]; // Same as board[][], but for the

@@ -1,5 +1,7 @@
 #include "same.h"
 
+// Draws every block on the board based on what's currently stored in
+// board[][]. This does not draw anything but the blocks.
 int draw_board() {
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
@@ -14,8 +16,14 @@ int draw_board() {
  return 0;
 }
 
+// Create a new random board.
 int reset_board() {
+
+ // eb is the easy block. If difficulty == DIF_EASY, this block is added to
+ // the board more often than any other. If god == true, it fills the board
+ // with that one block.
  char eb = get_rand(blocknum);
+
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
    board[col][row] = get_rand(blocknum);
@@ -29,15 +37,19 @@ int reset_board() {
    hled[col][row] = false;
   }
  }
+
+ // Set cursor to the origin
  x = 0;
  y = 0;
+
+ // The game is not over because we're starting a new one
  gameover = false;
  saved = true;
- // At some point, this needs to become a global variable
+
+ // Set the dimensions of the display pane.
  display_width = 20;
  display_height = 11;
- max_width = get_max_x()-display_width;
- max_height = get_max_y();
+
  move_cursor(x,y);
  undonum = 0;
  redonum = 0;
@@ -73,7 +85,7 @@ bool is_game_over() {
 }
 
 int set_width(int w) {
- if (w > 0 && w < max_width) {
+ if (w > 0 && w <= get_max_x() - display_width) {
   clear_all();
   width = w;
   char cmd[1024];
@@ -92,7 +104,7 @@ int set_width(int w) {
 }
 
 int set_height(int h) {
- if (h > 0 && h < max_height) {
+ if (h > 0 && h < get_max_y()) {
   clear_all();
   height = h;
   char cmd[1024];
