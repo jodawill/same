@@ -1,6 +1,9 @@
+// Game difficulty magic numbers
 #define DIF_EASY 1
 #define DIF_HARD 0
 
+// Decide what graphics library to use based on the OS. Throw a compiler
+// error if the OS isn't known to be supported.
 #if defined(__APPLE__) || defined(__linux__)
  #define __NCURSES__
  #define __SUPPORTED__
@@ -22,12 +25,17 @@
 #include <sys/stat.h>
 #include <stdbool.h>
 #include <stdio.h>
+
+// Include headers for graphics libraries
 #if defined(__NCURSES__)
  #include <ncurses.h>
  #define COLOR_DEFAULT 20
  #define COLOR_ERROR   21
 #endif
 
+// These keys should be defined here when using a graphics library other
+// than ncurses. They default to {-2,-3,-4,-5} so they don't cause errors
+// in the keyboard wait function if they're not properly defined.
 #ifndef KEY_UP
  #define KEY_UP -2
 #endif
@@ -42,29 +50,35 @@
 #endif
 
 // Global variables
-bool gameover;
-int x,y;
-int display_x, display_height, display_width;
-char hst_fn[1024];
-int difficulty;
-bool god;
+bool gameover; // Whether the game is over
+int x,y; // Where the cursor is. This should be changed to a struct later
+int display_height, display_width; // Dimensions for the table that displays
+                                   // logo, score, highscore, etc.
+char hst_fn[1024]; // Highscore table filename
+int difficulty; // Difficulties are defined as DIF_EASY, DIF_HARD
+bool god; // God mode fills the screen with one block
 int highscore;
-bool hled[1024][1024];
-int width;
-int height;
-int max_width, max_height;
-int board[1024][1024];
-int board_undo[1024][64][64];
-static int blocknum = 4;
-char hsn[14];
-int redonum;
-int undonum;
-int score_undo[1024];
-int n, score;
-static char blocks[16] = " abcdABCD";
-bool hl_board[64][64];
-char dir[1024];
-bool saved;
+bool hled[1024][1024]; // Stores whether a position is highlighted
+int width; // Board width. For screen width, get_max_x()
+int height; // Board height. For screen height, get_max_y()
+int max_width, max_height; // Deprecated; remove eventually. Use
+                           // get_max_x() and get_max_y() instead.
+int board[1024][1024]; // Stores value of each block on board. The
+                       // actual character map is in blocks[int].
+int board_undo[1024][64][64]; // Same as board[][], but for the
+                              // undo history.
+static int blocknum = 4; // Total number of distinct block types
+char hsn[14]; // Highscore name
+int redonum; // Number of redos available
+int undonum; // Number of undos available
+int score_undo[1024]; // Stores score at each point in undo history
+int n, score; // n is the number of blocks currently highlighted
+static char blocks[16] = " abcdABCD"; // Character map for board
+char dir[1024]; // Directory where settings are stored
+bool saved; // Whether game has been saved since last change
+
+// The rest of this file declares the functions in each file for global use.
+// See each file for function descriptions.
 
 // board.c
 int draw_board();
