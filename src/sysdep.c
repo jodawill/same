@@ -10,7 +10,7 @@ int ask_char() {
 }
 
 int rest() {
- #if defined(__APPLE__)
+ #if defined(__APPLE__) || defined(__linux__)
   struct timespec time1, time2;
   time1.tv_sec = 0;
   time1.tv_nsec = 20000000;

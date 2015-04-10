@@ -7,7 +7,7 @@ OBJECTS = src/same.o src/common.o src/draw.o src/graphics.o src/hst.o src/endgam
 .PHONY: clean make install uninstall
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< -std=c99
+	$(CC) -c -o $@ $<
 
 $(NAME): $(OBJECTS)
 	$(CC) -o $@ $^ $(CFLAGS)
