@@ -10,8 +10,15 @@
 
 #if defined(__APPLE__) || defined(__linux__)
  #define __NCURSES__
-#else
- #error "Your system is not supported."
+ #define __SUPPORTED__
+#endif
+#if defined(WIN16) || defined(WIN32) || defined(WIN64) || defined(MSDOS)
+ #warning "MS graphics libraries are not yet supported. Graphics and" \\
+          "keyboard features will not work, but we will compile anyway."
+ #define __SUPPORTED__
+#endif
+#ifndef __SUPPORTED__
+  #error "Your system is not supported."
 #endif
 
 // Global variables
