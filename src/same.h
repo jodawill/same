@@ -142,4 +142,5 @@ int undo();
 
 // sysdep.c
 int ask_char();
+int rest();
 

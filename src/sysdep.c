@@ -9,3 +9,14 @@ int ask_char() {
  return -1;
 }
 
+int rest() {
+ #if defined(__APPLE__)
+  struct timespec time1, time2;
+  time1.tv_sec = 0;
+  time1.tv_nsec = 20000000;
+  nanosleep(&time1,&time2);
+  return 0;
+ #endif
+ return -1;
+}
+
