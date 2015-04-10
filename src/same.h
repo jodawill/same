@@ -32,6 +32,9 @@
  #define COLOR_DEFAULT 20
  #define COLOR_ERROR   21
 #endif
+#if defined(__CONIO__)
+ #include <conio.h>
+#endif
 
 // These keys should be defined here when using a graphics library other
 // than ncurses. They default to {-2,-3,-4,-5} so they don't cause errors
