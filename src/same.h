@@ -8,6 +8,12 @@
 #define DIF_EASY 1
 #define DIF_HARD 0
 
+#if defined(__APPLE__) || defined(__linux__)
+ #define __NCURSES__
+#else
+ #error "Your system is not supported."
+#endif
+
 // Global variables
 bool gameover;
 int x,y;
@@ -103,5 +109,5 @@ int save_game(char in[]);
 int undo();
 
 // sysdep.c
-char ask_char();
+int ask_char();
 
