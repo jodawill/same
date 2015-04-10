@@ -8,6 +8,7 @@
 #if defined(WIN16) || defined(WIN32) || defined(WIN64) || defined(MSDOS)
  #warning "MS graphics libraries are not yet supported. Graphics and" \\
           "keyboard features will not work, but we will compile anyway."
+ #define __CONIO__
  #define __SUPPORTED__
 #endif
 #ifndef __SUPPORTED__
