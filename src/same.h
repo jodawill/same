@@ -1,10 +1,3 @@
-#include <stdlib.h>
-#include <curses.h>
-#include <string.h>
-#include <unistd.h>
-#include <time.h>
-#include <sys/stat.h>
-
 #define DIF_EASY 1
 #define DIF_HARD 0
 
@@ -19,6 +12,15 @@
 #endif
 #ifndef __SUPPORTED__
   #error "Your system is not supported."
+#endif
+
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <time.h>
+#include <sys/stat.h>
+#if defined(__NCURSES__)
+ #include <ncurses.h>
 #endif
 
 // Global variables
