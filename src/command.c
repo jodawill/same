@@ -1,13 +1,10 @@
 #include "same.h"
 
 int command_wait() {
- char key[1024];
- echo();
- getnstr(key,sizeof key);
- noecho();
- int a,b;
- getmaxyx(stdscr,a,b);
+ char key[get_max_x()+4];
  char str[32];
+
+ command_prompt(key);
  
  if (strcmp(key,"new") == 0) {
   clear_command();
@@ -157,10 +154,10 @@ int command_wait() {
 int cursor_wait() {
  char c = '\0';
  while (true) {
+  move_cursor(x,y);
   switch ((int)ask_char()) {
    case ':': {
     clear_command();
-    draw_command_prompt();
     if (command_wait() == 1) {
      return 0;
     }
@@ -218,6 +215,7 @@ int cursor_wait() {
    }
   }
   highlight(x,y);
+  move_cursor(x,y);
  }
 }
 

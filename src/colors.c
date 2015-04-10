@@ -14,8 +14,6 @@ int define_colors() {
 
   init_pair(20,COLOR_WHITE,COLOR_BLACK);
   init_pair(21,COLOR_WHITE,COLOR_RED);
-
-  init_pair(100,COLOR_BLACK,COLOR_WHITE);
   return 0;
  #endif
  return -1;

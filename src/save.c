@@ -6,14 +6,7 @@ int save_game(char in[]) {
  char name[1024];
  strcpy(name,in);
  if (strcmp(name,"") == 0) {
-  draw_command("Enter save game name: ");
-  int a,b;
-  getmaxyx(stdscr,a,b);
-  attron(COLOR_PAIR(20));
-  move(a-1,22);
-  echo();
-  getnstr(name,sizeof &name);
-  noecho();
+  prompt_str("Enter save game name:",name,24);
  }
  strcpy(sfn,dir);
  strcat(sfn,"/");
@@ -72,14 +65,8 @@ int load_game(char in[]) {
  char name[1024];
  strcpy(name,in);
  if (strcmp(name,"") == 0) {
-  draw_command("Enter saved game name: ");
-  int a,b;
-  getmaxyx(stdscr,a,b);
-  attron(COLOR_PAIR(20));
-  move(a-1,22);
-  echo();
-  getnstr(name,sizeof &name);
-  noecho();
+  //draw_command("Enter saved game name: ");
+  prompt_str("Enter game name:",name,sizeof name-4);
  }
  strcpy(sfn,dir);
  strcat(sfn,"/");

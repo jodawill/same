@@ -33,13 +33,11 @@ int reset_board() {
  y = 0;
  gameover = false;
  saved = true;
- int a,b;
- getmaxyx(stdscr,a,b);
  // At some point, this needs to become a global variable
  display_width = 20;
  display_height = 11;
- max_width = b-display_width;
- max_height = a;
+ max_width = get_max_x()-display_width;
+ max_height = get_max_y();
  move_cursor(x,y);
  undonum = 0;
  redonum = 0;

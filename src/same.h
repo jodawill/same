@@ -21,12 +21,14 @@
 #include <sys/stat.h>
 #if defined(__NCURSES__)
  #include <ncurses.h>
+ #define COLOR_DEFAULT 20
+ #define COLOR_ERROR   21
 #endif
 
 // Global variables
 bool gameover;
 int x,y;
-int display_height, display_width;
+int display_x, display_height, display_width;
 char hst_fn[1024];
 int difficulty;
 bool god;
@@ -60,7 +62,6 @@ int set_width();
 int define_colors();
 
 // command.c
-int clear_command();
 int command_wait();
 int cursor_wait();
 
@@ -80,11 +81,14 @@ int end_game();
 // graphics.c
 int draw_block(int col,int row,int block,bool hled);
 int draw_clear_block(int col,int row);
+int clear_command();
+int command_prompt(char key[]);
 int draw_command(const char* text);
-int draw_command_prompt();
 int draw_display(int row,const char* msg);
-int draw_error();
+int draw_error(const char *msg);
 int draw_logo();
+int get_max_x();
+int get_max_y();
 int move_cursor(int col,int row);
 int prompt_str(const char msg[],char outstr[],int strn);
 int refresh_screen();
