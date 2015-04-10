@@ -8,14 +8,10 @@ int init() {
  y = 0;
  width = 32;
  height = 16;
- #if defined(__NCURSES__)
-  initscr();
-  cbreak();
-  noecho();
-  start_color();
-  intrflush(stdscr,false);
-  keypad(stdscr,true);
- #endif
+ if (init_screen() < 0) {
+  printf("No graphics library specified.\n");
+  return -1;
+ }
  time_t t;
  srand((unsigned)time(&t));
  define_colors();
@@ -28,9 +24,7 @@ int init() {
 }
 
 int cleanup() {
- #if defined(__NCURSES__)
-  endwin();
- #endif
+ clean_screen();
  return 0;
 }
 

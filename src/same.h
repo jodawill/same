@@ -1,11 +1,11 @@
 #define DIF_EASY 1
 #define DIF_HARD 0
 
-#if defined(__PPLE__) || defined(__linux__)
+#if defined(__APPLE__) || defined(__linux__)
  #define __NCURSES__
  #define __SUPPORTED__
 #endif
-#if defined(__APPLE__) || defined(WIN16) || defined(WIN32) || defined(WIN64) || defined(MSDOS)
+#if defined(WIN16) || defined(WIN32) || defined(WIN64) || defined(MSDOS)
  #warning "MS graphics libraries are not yet supported. Graphics and" \\
           "keyboard features will not work, but we will compile anyway."
  #define __SUPPORTED__
@@ -94,6 +94,7 @@ int draw_undo();
 int end_game();
 
 // graphics.c
+int clean_screen();
 int clear_all();
 int draw_block(int col,int row,int block,bool hled);
 int draw_clear_block(int col,int row);
@@ -105,6 +106,7 @@ int draw_error(const char *msg);
 int draw_logo();
 int get_max_x();
 int get_max_y();
+int init_screen();
 int move_cursor(int col,int row);
 int prompt_str(const char msg[],char outstr[],int strn);
 int refresh_screen();

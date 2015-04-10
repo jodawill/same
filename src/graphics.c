@@ -1,5 +1,13 @@
 #include "same.h"
 
+int clean_screen() {
+ #if defined(__NCURSES__)
+  endwin();
+  return 0;
+ #endif
+ return -1;
+}
+
 int clear_all() {
  #if defined(__NCURSES__)
   erase();
@@ -112,6 +120,19 @@ int get_max_y() {
   int a,b;
   getmaxyx(stdscr,a,b);
   return a;
+ #endif
+ return -1;
+}
+
+int init_screen() {
+ #if defined(__NCURSES__)
+  initscr();
+  cbreak();
+  noecho();
+  start_color();
+  intrflush(stdscr,false);
+  keypad(stdscr,true);
+  return 0;
  #endif
  return -1;
 }
