@@ -28,7 +28,9 @@ int init() {
 }
 
 int cleanup() {
- endwin();
+ #if defined(__NCURSES__)
+  endwin();
+ #endif
  return 0;
 }
 
