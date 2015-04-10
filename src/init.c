@@ -8,16 +8,18 @@ int init() {
  y = 0;
  width = 32;
  height = 16;
- initscr();
- cbreak();
- noecho();
- start_color();
- intrflush(stdscr,false);
+ #if defined(__NCURSES__)
+  initscr();
+  cbreak();
+  noecho();
+  start_color();
+  intrflush(stdscr,false);
+  keypad(stdscr,true);
+ #endif
  time_t t;
  srand((unsigned)time(&t));
  define_colors();
  draw_logo();
- keypad(stdscr,true);
 
  reset_board();
  cursor_wait();
