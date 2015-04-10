@@ -38,11 +38,14 @@ int reset_board() {
   }
  }
 
- // Set cursor to the origin
+ // Set cursor to the origin.
  x = 0;
  y = 0;
 
- // The game is not over because we're starting a new one
+ // Move the cursor to (x,y), which we set as the origin.
+ move_cursor(x,y);
+
+ // The game is not over because we're starting a new one.
  gameover = false;
  saved = true;
 
@@ -50,11 +53,12 @@ int reset_board() {
  display_width = 20;
  display_height = 11;
 
- move_cursor(x,y);
+ // Set the standard global variables to 0.
  undonum = 0;
  redonum = 0;
  score = 0;
  n = 0;
+
  copy_board();
  draw_logo();
  draw_score();
@@ -64,6 +68,8 @@ int reset_board() {
  return 0;
 }
 
+// Look on all four sides of block to see if it's part of a contiguous
+// region.
 bool is_block_alone(int col, int row) {
  char b = board[col][row];
  if (b < 0) return true;
@@ -75,6 +81,8 @@ bool is_block_alone(int col, int row) {
  return true;
 }
 
+// Starting at the origin, it checks whether each block is alone. As soon as
+// it finds one that's not alone, it returns that the game is not over.
 bool is_game_over() {
  for (int col = 0; col < width; col++) {
   for (int row = 0; row < height; row++) {
@@ -84,6 +92,7 @@ bool is_game_over() {
  return true;
 }
 
+// Sets the board width and starts a new game
 int set_width(int w) {
  if (w > 0 && w <= get_max_x() - display_width) {
   clear_all();
