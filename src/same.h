@@ -8,7 +8,7 @@
  #define __NCURSES__
  #define __SUPPORTED__
 #endif
-#if defined(WIN32) || defined(WIN64) || defined(MSDOS) || defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__WIN64__) || defined(__CYGWIN32__) || defined(__CYGWIN64__)
+#if defined(WIN32) || defined(WIN64) || defined(MSDOS) || defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__WIN64__) || defined(__CYGWIN32__) || defined(__CYGWIN64__) || defined(__CYGWIN__)
  #warning "MS graphics libraries are not yet supported. Graphics and" \\
           "keyboard features will not work, but we will compile anyway."
  #define __CONIO__

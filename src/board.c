@@ -59,10 +59,17 @@ int reset_board() {
  score = 0;
  n = 0;
 
+ // Copies the current board for the undo history
  copy_board();
+
+ // Draw the SameGame logo in the display pane
  draw_logo();
+
+ // Draw score to display pane
  draw_score();
+ // Draw display showing number of undos and redos available
  draw_undo();
+ // Draw highscore table
  draw_hst();
 
  return 0;
