@@ -75,6 +75,7 @@ int n, score; // n is the number of blocks currently highlighted
 static char blocks[16] = " abcdABCD"; // Character map for board
 char dir[1024]; // Directory where settings are stored
 bool saved; // Whether game has been saved since last change
+int potential_score;
 
 // The rest of this file declares the functions in each file for global use.
 // See each file for function descriptions.

@@ -80,8 +80,8 @@ int check_hl(int x, int y, char bl, bool remq) {
  if (bl < 0) return 1;
  if (x > 0 && !hled[x-1][y] && board[x-1][y] == bl
      && board[x-1][y] > -1) {
+  n++;
   if (remq) {
-   n++;
    board[x-1][y] = -1;
    hled[x-1][y] = true;
    check_hl(x-1,y,bl,true);
@@ -94,8 +94,8 @@ int check_hl(int x, int y, char bl, bool remq) {
 
  if (x+1 < width && !hled[x+1][y] && board[x+1][y] == bl
      && board[x+1][y] > -1) {
+  n++;
   if (remq) {
-   n++;
    draw_clear_block(x+1,y);
    board[x+1][y] = -1;
    hled[x+1][y] = true;
@@ -109,8 +109,8 @@ int check_hl(int x, int y, char bl, bool remq) {
 
  if (y > 0 && !hled[x][y-1] && board[x][y-1] == bl
      && board[x][y-1] > -1) {
+  n++;
   if (remq) {
-   n++;
    draw_clear_block(x,y-1);
    board[x][y-1] = -1;
    hled[x][y-1] = true;
@@ -124,8 +124,8 @@ int check_hl(int x, int y, char bl, bool remq) {
 
  if (y+1 < height && !hled[x][y+1] && board[x][y+1] == bl
      && board[x][y+1] > -1) {
+  n++;
   if (remq) {
-   n++;
    draw_clear_block(x,y+1);
    board[x][y+1] = -1;
    hled[x][y+1] = true;
@@ -163,11 +163,16 @@ int highlight(int x, int y) {
  draw_undo();
  if (is_block_alone(x,y)) {
   highlight_none();
+  potential_score = 0;
+  draw_score();
   return 1;
  }
  if (board[x][y] < 0) return 1;
  highlight_none();
+ n = 0;
  check_hl(x,y,board[x][y],false);
+ potential_score = (n-1)*(n-1);
+ draw_score();
 
  return 0;
 }

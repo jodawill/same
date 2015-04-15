@@ -57,6 +57,7 @@ int reset_board() {
  undonum = 0;
  redonum = 0;
  score = 0;
+ potential_score = 0;
  n = 0;
 
  // Copies the current board for the undo history
