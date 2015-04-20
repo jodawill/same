@@ -14,6 +14,7 @@ For Debian-based systems (such as Ubuntu):
 ````
 sudo apt-get install build-essential libncurses5-dev
 make
+````
 
 ### Mac OS X
 To simply install GNU Make and gcc, you can just install Xcode from the App Store. To install ncurses:
