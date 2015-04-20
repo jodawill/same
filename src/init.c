@@ -4,8 +4,12 @@ int init() {
  god = false;
  difficulty = DIF_HARD;
  highlight_none();
- x = 0;
- y = 0;
+ struct pos {
+  int x;
+  int y;
+ };
+ pos.x = 0;
+ pos.y = 0;
  width = 32;
  height = 16;
  if (init_screen() < 0) {

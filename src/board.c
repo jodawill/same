@@ -39,11 +39,11 @@ int reset_board() {
  }
 
  // Set cursor to the origin.
- x = 0;
- y = 0;
+ pos.x = 0;
+ pos.y = 0;
 
  // Move the cursor to (x,y), which we set as the origin.
- move_cursor(x,y);
+ move_cursor(pos.x,pos.y);
 
  // The game is not over because we're starting a new one.
  gameover = false;

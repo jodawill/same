@@ -52,7 +52,11 @@
 
 // Global variables
 bool gameover; // Whether the game is over
-int x,y; // Where the cursor is. This should be changed to a struct later
+struct coordinate {
+ int x;
+ int y;
+};
+struct coordinate pos;
 int display_height, display_width; // Dimensions for the table that displays
                                    // logo, score, highscore, etc.
 char hst_fn[1024]; // Highscore table filename

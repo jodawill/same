@@ -154,7 +154,7 @@ int command_wait() {
 int cursor_wait() {
  char c = '\0';
  while (true) {
-  move_cursor(x,y);
+  move_cursor(pos.x,pos.y);
   switch ((int)ask_char()) {
    case ':': {
     clear_command();
@@ -177,31 +177,31 @@ int cursor_wait() {
    case 'x': {
    }
    case '\n': {
-    delblock(x,y);
+    delblock(pos.x,pos.y);
     break;
    }
    case KEY_LEFT: {
    }
    case 'h': {
-    if (x > 0) x--;
+    if (pos.x > 0) pos.x--;
     break;
    }
    case KEY_RIGHT: {
    }
    case 'l': {
-    if (x < width - 1) x++;
+    if (pos.x < width - 1) pos.x++;
     break;
    }
    case KEY_UP: {
    }
    case 'k': {
-    if (y > 0) y--;
+    if (pos.y > 0) pos.y--;
     break;
    }
    case KEY_DOWN: {
    }
    case 'j': {
-    if (y < height - 1) y++;
+    if (pos.y < height - 1) pos.y++;
     break;
    }
    case 'n': {
@@ -214,8 +214,8 @@ int cursor_wait() {
     break;
    }
   }
-  highlight(x,y);
-  move_cursor(x,y);
+  highlight(pos.x,pos.y);
+  move_cursor(pos.x,pos.y);
  }
 }
 

@@ -182,7 +182,7 @@ int redo() {
   }
  }
  draw_board();
- highlight(x,y);
+ highlight(pos.x,pos.y);
  score = score_undo[undonum];
  draw_score();
  redonum--;
@@ -210,7 +210,7 @@ int undo() {
  }
  score = score_undo[undonum];
  draw_board();
- highlight(x,y);
+ highlight(pos.x,pos.y);
  draw_score();
  redonum++;
  draw_command("Reverted to last change.");
