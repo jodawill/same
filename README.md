@@ -4,9 +4,19 @@ This is a SameGame clone with vi-like commands.
 
 ## Compiling
 
-To compile on a Mac, you will have to have XCode and ncurses installed.
+This software is known to compile on Mac OS X and GNU/Linux. The portability is mainly limited to the available graphics libraries. Currently, only ncurses is supported. In future releases, I intend to include support for other libraries, such as GTK. If you're interested in porting this to another system, please contact me. jodawill@members.fsf.org
 
-To install ncurses:
+GNU Make, gcc, and ncurses are required to compile SameGame.
+
+### GNU/Linux
+For Debian-based systems (such as Ubuntu):
+
+````
+sudo apt-get install build-essential libncurses5-dev
+make
+
+### Mac OS X
+To simply install GNU Make and gcc, you can just install Xcode from the App Store. To install ncurses:
 
 ````
 curl -O ftp://ftp.gnu.org/gnu/ncurses/ncurses-5.9.tar.gz
@@ -20,7 +30,7 @@ make
 sudo make install
 ````
 
-Once you have these installed, just type 'make' to compile and './same' to run.
+Once you have these installed, 'cd' back to the "same" directory and type 'make' to compile and './same' to run.
 
 ##Controls
 
