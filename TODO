@@ -3,9 +3,9 @@
 +---------------------------------------------------------+
 
 // General
-* Display score potential
 * Separate the main loop from the logic so different event systems can
   can be used
 * draw.c probably needs to completely go away in favor of graphics.c, which
   will eventually contain build options for multiple GUI platforms
+* Create GTK support
 
