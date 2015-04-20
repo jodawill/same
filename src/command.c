@@ -30,26 +30,26 @@ int command_wait() {
  }
  if (strcmp(key,"q") == 0) {
   if (saved) {
-   return 1;
+   return EXIT;
   } else {
    draw_error("No write since last change (add ! to override)");
    return 0;
   }
  }
  if (strcmp(key,"q!") == 0 ) {
-  return 1;
+  return EXIT;
  }
  if (key[0] == 'x') {
-  // Save game
+  // Save game, then exit the application
   if (strcmp(key,"x") == 0) {
    save_game("");
-   return 1;
+   return EXIT;
   }
   if (key[1] == ' ') {
    strncpy(str,&key[2],strlen(key)-1);
    str[strlen(key)-2] = '\0';
    save_game(str);
-   return 1;
+   return EXIT;
   }
  }
  if (key[0] == 'w') {
@@ -158,7 +158,7 @@ int cursor_wait() {
   switch ((int)ask_char()) {
    case ':': {
     clear_command();
-    if (command_wait() == 1) {
+    if (command_wait() == EXIT) {
      return 0;
     }
     break;
