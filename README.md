@@ -39,6 +39,8 @@ To navigate, you may either use the arrows or 'hjkl'. To delete a section of blo
 
 To undo, press 'u' or type ':u'. To redo, press 'r' or type ':r'. You can see how many undos and redos you have available on the right side of the screen.
 
+Command multipliers are supported. For example, to move 5 rows down, type '5j', or to delete 3 chains, type '3x'.
+
 To quit, type ':q'. To save before quitting, type ':x'.
 
 To save the game, type ':w'. Games are stored in '~/.same/NAME.sav'.
