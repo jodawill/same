@@ -10,6 +10,7 @@ int init() {
  };
  pos.x = 0;
  pos.y = 0;
+ multiplier = 0;
  width = 32;
  height = 16;
  if (init_screen() < 0) {

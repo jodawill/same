@@ -53,10 +53,14 @@
 
 // Global variables
 bool gameover; // Whether the game is over
+// multiplier stores the number of times an action is to be performed
+int multiplier;
+// A generic struct for storing any cartesian coordinate
 struct coordinate {
  int x;
  int y;
 };
+// pos is the coordinate variable for the current cursor position
 struct coordinate pos;
 int display_height, display_width; // Dimensions for the table that displays
                                    // logo, score, highscore, etc.

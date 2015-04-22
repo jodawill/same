@@ -25,7 +25,9 @@ int command_wait() {
  }
  if (strcmp(key,"r") == 0) {
   clear_command();
-  redo();
+  for (int i = 0; i < multiplier; i++) {
+   redo();
+  }
   return 0;
  }
  if (strcmp(key,"q") == 0) {
@@ -152,10 +154,32 @@ int command_wait() {
 }
 
 int cursor_wait() {
- char c = '\0';
+ int current_char;
+ bool reset_mult;
  while (true) {
   move_cursor(pos.x,pos.y);
-  switch ((int)ask_char()) {
+  current_char = (int)ask_char();
+
+  if (reset_mult) multiplier = 0;
+
+  // If a number is pressed, add it to the multiplier and skip the switch
+  if (current_char >= (int)'0' && current_char <= (int)'9') {
+   reset_mult = false;
+   if (multiplier == 0) {
+    multiplier = current_char-(int)'0';
+   } else {
+    multiplier *= 10;
+    multiplier += current_char-(int)'0';
+   }
+   continue;
+  }
+  // Else, signal to kill the multiplier next time
+  reset_mult = true;
+
+  if (multiplier == 0) {
+   multiplier = 1;
+  }
+  switch (current_char) {
    case ':': {
     clear_command();
     if (command_wait() == EXIT) {
@@ -164,11 +188,15 @@ int cursor_wait() {
     break;
    }
    case 'u': {
-    undo();
+    for (int i = 0; i < multiplier; i++) {
+     undo();
+    }
     break;
    }
    case 'r': {
-    redo();
+    for (int i = 0; i < multiplier; i++) {
+     redo();
+    }
     break;
    }
    case 'd': {
@@ -177,31 +205,41 @@ int cursor_wait() {
    case 'x': {
    }
    case '\n': {
-    delblock(pos.x,pos.y);
+    for (int i = 0; i < multiplier; i++) {
+     delblock(pos.x,pos.y);
+    }
     break;
    }
    case KEY_LEFT: {
    }
    case 'h': {
-    if (pos.x > 0) pos.x--;
+    for (int i = 0; i < multiplier; i++) {
+     if (pos.x > 0) pos.x--;
+    }
     break;
    }
    case KEY_RIGHT: {
    }
    case 'l': {
-    if (pos.x < width - 1) pos.x++;
+    for (int i = 0; i < multiplier; i++) {
+     if (pos.x < width - 1) pos.x++;
+    }
     break;
    }
    case KEY_UP: {
    }
    case 'k': {
-    if (pos.y > 0) pos.y--;
+    for (int i = 0; i < multiplier; i++) {
+     if (pos.y > 0) pos.y--;
+    }
     break;
    }
    case KEY_DOWN: {
    }
    case 'j': {
-    if (pos.y < height - 1) pos.y++;
+    for (int i = 0; i < multiplier; i++) {
+     if (pos.y < height - 1) pos.y++;
+    }
     break;
    }
    case 'n': {
@@ -213,9 +251,11 @@ int cursor_wait() {
     if (gameover) reset_board();
     break;
    }
+   default: {
+    break;
+   }
   }
   highlight(pos.x,pos.y);
-  //move_cursor(pos.x,pos.y);
  }
 }
 
