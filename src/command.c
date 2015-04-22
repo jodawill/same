@@ -67,9 +67,9 @@ int command_wait() {
    return 0;
   }
  }
- if (key[0] == 'o') {
+ if (key[0] == 'e') {
   // Open saved game
-  if (strcmp(key,"o") == 0) {
+  if (strcmp(key,"e") == 0) {
    load_game("");
    return 0;
   }
