@@ -65,7 +65,6 @@ int load_game(char in[]) {
  char name[1024];
  strcpy(name,in);
  if (strcmp(name,"") == 0) {
-  //draw_command("Enter saved game name: ");
   prompt_str("Enter game name:",name,sizeof name-4);
  }
  strcpy(sfn,dir);

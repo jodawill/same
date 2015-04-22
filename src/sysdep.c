@@ -1,4 +1,9 @@
 #include "same.h"
+#if defined(__APPLE__) || defined(__linux__)
+ #define NANOSLEEP_AVAILABLE
+#else
+ #include <limits.h>
+#endif
 
 // Since there's no standard method for obtaining a char without hitting the
 // return key, we're going to use system dependent funcitons for this.
@@ -10,16 +15,19 @@ int ask_char() {
 }
 
 int rest() {
- #if defined(__APPLE__) || defined(__linux__)
+ //#if defined(__APPLE__) || defined(__linux__)
+ #if defined(NANOSLEEP_AVAILABLE)
   struct timespec time1, time2;
   time1.tv_sec = 0;
-  time1.tv_nsec = 20000000;
+  time1.tv_nsec = 25000000;
   nanosleep(&time1,&time2);
   return 0;
+ #else
+  // If we can't find a suitable function to sleep less than a second, we'll
+  // fall back on a busy wait. It's an ugly hack, so we'll avoid this on
+  // every system we officially support.
+  for (int c = 0; c < INT_MAX/100; c++);
  #endif
- // If we can't find a suitable function to sleep less than a second, we'll
- // fall back on sleep().
- sleep(1);
  return -1;
 }
 

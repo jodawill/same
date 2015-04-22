@@ -7,6 +7,7 @@ int end_game() {
  clear_command();
  draw_undo();
 
+ // End of game animation. Display the entire undo and redo history.
  for (int u = undonum-1; u >= 0; u--) {
   for (int col = 0; col < width; col++) {
    for (int row = 0; row < height; row++) {

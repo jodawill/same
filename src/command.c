@@ -215,7 +215,7 @@ int cursor_wait() {
    }
   }
   highlight(pos.x,pos.y);
-  move_cursor(pos.x,pos.y);
+  //move_cursor(pos.x,pos.y);
  }
 }
 
