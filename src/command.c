@@ -69,13 +69,19 @@ int command_wait() {
  }
  if (key[0] == 'e') {
   // Open saved game
-  if (strcmp(key,"e") == 0) {
+  if (key[1] != '!' && !saved) {
+   draw_error("No write since last change (add ! to override)");
+   return 0;
+  }
+  if (strcmp(key,"e") == 0 || strcmp(key,"e!") == 0) {
    load_game("");
    return 0;
   }
-  if (key[1] == ' ') {
-   strncpy(str,&key[2],strlen(key)-1);
-   str[strlen(key)-2] = '\0';
+  if (key[1] == ' ' || (key[1] == '!' && key[2] == ' ')) {
+   int offset = 2;
+   if (key[1] == '!') offset++;
+   strncpy(str,&key[offset],strlen(key)-1);
+   str[strlen(key)-offset] = '\0';
    load_game(str);
    return 0;
   }
