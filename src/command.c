@@ -3,6 +3,7 @@
 int command_wait() {
  char key[get_max_x()+4];
  char str[32];
+ int num;
 
  command_prompt(key);
  
@@ -136,24 +137,30 @@ int command_wait() {
   else draw_error("Error: Invalid argument to 'animation'");
   return 0;
  }
- strncpy(str,key,4);
- str[4] = '\0';
+
+ // Set board dimensions
+ num = -1;
+ sscanf(key,"%s %d",str,&num);
  if (strcmp(str,"setw") == 0) {
+  if (num <= 0) {
+   draw_error("Error: Invalid argument to 'setw'");
+   return 0;
+  }
   if (!confirm("Setting the width will reset the game. Continue?")) {
    return 0;
   }
-  char w[strlen(key-5)];
-  strncpy(w,&key[5],strlen(key)-5);
-  set_width(atoi(w));
+  set_width(num);
   return 0;
  }
  if (strcmp(str,"seth") == 0) {
+  if (num <= 0) {
+   draw_error("Error: Invalid argument to 'seth'");
+   return 0;
+  }
   if (!confirm("Setting the height will reset the game. Continue?")) {
    return 0;
   }
-  char h[strlen(key-5)];
-  strncpy(h,&key[5],strlen(key)-5);
-  set_height(atoi(h));
+  set_height(num);
   return 0;
  }
 
