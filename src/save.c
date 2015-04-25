@@ -188,6 +188,7 @@ int redo() {
  redonum--;
  draw_command("Reverted to next board state.");
  if (is_game_over()) end_game();
+ draw_undo();
 
  return 0;
 }
@@ -213,6 +214,7 @@ int undo() {
  highlight(pos.x,pos.y);
  draw_score();
  redonum++;
+ draw_undo();
  draw_command("Reverted to last change.");
 
  return 0;
