@@ -131,8 +131,7 @@ int command_wait() {
   return 0;
  }
 
- strncpy(str,key,9);
- str[9] = '\0';
+ sscanf(key,"%s",str);
  if (strcmp(str,"animation") == 0) {
   sscanf(key,"%s %s",str,str);
   if (strcmp(str,"off") == 0) animation = false;
