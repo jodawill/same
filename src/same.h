@@ -167,6 +167,7 @@ int save_game(char in[]);
 int undo(bool script_mode);
 
 // scripts.c
+int evaluate(char *cmd);
 int read_script(char fn[]);
 
 // sysdep.c

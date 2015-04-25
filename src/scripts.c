@@ -7,9 +7,6 @@ int read_script(char fn[]) {
  }
  size_t length = 0;
  char *line = NULL;
- char command[32];
- char argument[32];
- char sc[] = ";";
  char *token;
 
  // Currently, same only supports one command per line. This may change in
@@ -19,28 +16,35 @@ int read_script(char fn[]) {
   strtok(line,"\n");
 
   // Ignore everything on a line after a comment
-  strtok(line,"//");
+  token = strsep(&line,"//");
 
   // Process each command separated by a semicolon
-  token = strtok(line,sc);
+  token = strtok(token,";");
   while (token != NULL) {
 
-   // Remove white space from command & argument
-   strcpy(command,"");
-   if (sscanf(token,"%s %s",command,argument) > 1) {
-    strcat(command," ");
-    strcat(command,argument);
-   }
+   // Process statement
+   evaluate(token);
 
-   // Process command
-   read_command(command,true);
-
-   // Read next command
-   token = strtok(NULL,sc);
+   // Read next statement
+   token = strtok(NULL,";");
   }
  }
 
  fclose(f);
  return 0;
 }
+
+int evaluate(char *cmd) {
+ // Remove white space from command & argument
+ char argument[32];
+ char command[32];
+ strcpy(command,"");
+ if (sscanf(cmd,"%s %s",command,argument) > 1) {
+  strcat(command," ");
+  strcat(command,argument);
+ }
+
+ // Return command
+ return read_command(command,true);
+} 
 
