@@ -127,6 +127,15 @@ int command_wait() {
   }
   return 0;
  }
+ strncpy(str,key,9);
+ str[9] = '\0';
+ if (strcmp(str,"animation") == 0) {
+  sscanf(key,"%s %s",str,str);
+  if (strcmp(str,"off") == 0) animation = false;
+  else if (strcmp(str,"on") == 0) animation = true;
+  else draw_error("Error: Invalid argument to 'animation'");
+  return 0;
+ }
  strncpy(str,key,4);
  str[4] = '\0';
  if (strcmp(str,"setw") == 0) {

@@ -85,6 +85,7 @@ static char blocks[16] = " abcdABCD"; // Character map for board
 char dir[1024]; // Directory where settings are stored
 bool saved; // Whether game has been saved since last change
 int potential_score;
+bool animation; // Whether to show an animation at the end of the game
 
 // The rest of this file declares the functions in each file for global use.
 // See each file for function descriptions.
