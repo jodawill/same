@@ -169,10 +169,10 @@ int copy_board() {
  return 0;
 }
 
-int redo() {
+int redo(bool script_mode) {
  saved = false;
  if (redonum <= 0) {
-  draw_command("Already at the latest saved state.");
+  if (!script_mode) draw_command("Already at the latest saved state.");
   return 1;
  }
  undonum++;
@@ -186,16 +186,16 @@ int redo() {
  score = score_undo[undonum];
  draw_score();
  redonum--;
- draw_command("Reverted to next board state.");
+ if (!script_mode) draw_command("Reverted to next board state.");
  if (is_game_over()) end_game();
  draw_undo();
 
  return 0;
 }
 
-int undo() {
+int undo(bool script_mode) {
  if (undonum <= 0) {
-  draw_command("Already at the earliest state.");
+  if (!script_mode) draw_command("Already at the earliest state.");
   return 1;
  }
 
@@ -215,7 +215,7 @@ int undo() {
  draw_score();
  redonum++;
  draw_undo();
- draw_command("Reverted to last change.");
+ if (!script_mode) draw_command("Reverted to last change.");
 
  return 0;
 }

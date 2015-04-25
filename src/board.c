@@ -101,16 +101,18 @@ bool is_game_over() {
 }
 
 // Sets the board width and starts a new game
-int set_width(int w) {
+int set_width(int w,bool script_mode) {
  if (w > 0 && w <= get_max_x() - display_width) {
   clear_all();
   width = w;
-  char cmd[1024];
-  strcpy(cmd,"Board width set to ");
-  char str[10];
-  snprintf(str,10,"%d",w);
-  strcat(cmd,str);
-  draw_command(cmd);
+  if (!script_mode) {
+   char cmd[1024];
+   strcpy(cmd,"Board width set to ");
+   char str[10];
+   snprintf(str,10,"%d",w);
+   strcat(cmd,str);
+   draw_command(cmd);
+  }
   reset_board();
   return 0;
  } else {
@@ -120,21 +122,23 @@ int set_width(int w) {
  return 1;
 }
 
-int set_height(int h) {
+int set_height(int h,bool script_mode) {
  if (h > 0 && h < get_max_y()) {
   clear_all();
   height = h;
-  char cmd[1024];
-  strcpy(cmd,"Board height set to ");
-  char str[10];
-  snprintf(str,10,"%d",h);
-  strcat(cmd,str);
-  draw_command(cmd);
+  if (!script_mode) {
+   char cmd[1024];
+   strcpy(cmd,"Board height set to ");
+   char str[10];
+   snprintf(str,10,"%d",h);
+   strcat(cmd,str);
+   draw_command(cmd);
+  }
   reset_board();
   return 0;
  } else {
-  draw_error("Not a valid height");
-  return 1;
+  if (!script_mode) draw_error("Not a valid height");
+  return ERROR;
  }
  return 0;
 }

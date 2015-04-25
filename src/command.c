@@ -49,7 +49,7 @@ int read_command(char key[],bool script_mode) {
  if (strcmp(key,"u") == 0) {
   clear_command();
   for (int c = 0; c < mult; c++) {
-   ret = undo();
+   ret = undo(script_mode);
   }
   return ret;
  }
@@ -58,7 +58,7 @@ int read_command(char key[],bool script_mode) {
  if (strcmp(key,"r") == 0) {
   clear_command();
   for (int c = 0; c < mult; c++) {
-   ret = redo();
+   ret = redo(script_mode);
   }
   return ret;
  }
@@ -207,7 +207,7 @@ int read_command(char key[],bool script_mode) {
     return false;
    }
   }
-  set_width(num);
+  set_width(num,script_mode);
   return true;
  }
  if (strcmp(str,"seth") == 0) {
@@ -220,7 +220,7 @@ int read_command(char key[],bool script_mode) {
     return false;
    }
   }
-  set_height(num);
+  set_height(num,script_mode);
   return true;
  }
 
@@ -270,13 +270,13 @@ int cursor_wait() {
    }
    case 'u': {
     for (int i = 0; i < multiplier; i++) {
-     undo();
+     undo(false);
     }
     break;
    }
    case 'r': {
     for (int i = 0; i < multiplier; i++) {
-     redo();
+     redo(false);
     }
     break;
    }

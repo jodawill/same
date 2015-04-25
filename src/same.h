@@ -96,8 +96,8 @@ int draw_board();
 bool is_block_alone(int col, int row);
 bool is_game_over();
 int reset_board();
-int set_height();
-int set_width();
+int set_height(int h,bool script_mode);
+int set_width(int w,bool script_mode);
 
 // colors.c
 int define_colors();
@@ -162,9 +162,9 @@ int init();
 // save.c
 int copy_board();
 int load_game(char in[]);
-int redo();
+int redo(bool script_mode);
 int save_game(char in[]);
-int undo();
+int undo(bool script_mode);
 
 // scripts.c
 int read_script(char fn[]);
