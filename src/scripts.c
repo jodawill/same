@@ -12,21 +12,22 @@ int read_script(char fn[]) {
  // Currently, same only supports one command per line. This may change in
  // the future.
  while (getline(&line,&length,f) != EOF) {
+  char *ptr;
   // getline leaves the newline at the end of the string. Not cool
-  strtok(line,"\n");
+  strtok_r(line,"\n",&ptr);
 
   // Ignore everything on a line after a comment
   token = strsep(&line,"//");
 
   // Process each command separated by a semicolon
-  token = strtok(token,";");
+  token = strtok_r(token,";",&ptr);
   while (token != NULL) {
 
    // Process statement
    evaluate(token);
 
    // Read next statement
-   token = strtok(NULL,";");
+   token = strtok_r(NULL,";",&ptr);
   }
  }
 
