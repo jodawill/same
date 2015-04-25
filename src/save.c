@@ -145,6 +145,7 @@ int load_game(char in[]) {
  draw_hst();
  draw_score();
  draw_board();
+ draw_undo();
 
  char str[32];
  strcpy(str,"Loaded game '");

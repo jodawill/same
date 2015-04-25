@@ -10,6 +10,7 @@ int init() {
  };
  pos.x = 0;
  pos.y = 0;
+ animation = true;
  multiplier = 0;
  width = 32;
  height = 16;
@@ -23,6 +24,13 @@ int init() {
  draw_logo();
 
  reset_board();
+
+ set_dir();
+ char file[1024];
+ strcpy(file,dir);
+ strcat(file,"/.samerc");
+ read_script(file);
+
  cursor_wait();
 
  return 0;

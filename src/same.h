@@ -85,6 +85,7 @@ static char blocks[16] = " abcdABCD"; // Character map for board
 char dir[1024]; // Directory where settings are stored
 bool saved; // Whether game has been saved since last change
 int potential_score;
+bool animation; // Whether to show an animation at the end of the game
 
 // The rest of this file declares the functions in each file for global use.
 // See each file for function descriptions.
@@ -103,6 +104,7 @@ int define_colors();
 // command.c
 int command_wait();
 int cursor_wait();
+int read_command(char key[],bool script_mode);
 
 // common.c
 bool confirm(const char* str);
@@ -162,6 +164,9 @@ int load_game(char in[]);
 int redo();
 int save_game(char in[]);
 int undo();
+
+// scripts.c
+int read_script(char fn[]);
 
 // sysdep.c
 int ask_char();

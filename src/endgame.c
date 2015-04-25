@@ -7,6 +7,7 @@ int end_game() {
  clear_command();
  draw_undo();
 
+ if (!animation) goto end;
  // End of game animation. Display the entire undo and redo history.
  for (int u = undonum-1; u >= 0; u--) {
   for (int col = 0; col < width; col++) {
@@ -30,6 +31,7 @@ int end_game() {
   rest();
  }
 
+ end:
  draw_command("Game Over. :new to start a new game.");
  gameover = true;
  draw_hst();

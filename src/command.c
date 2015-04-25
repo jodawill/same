@@ -3,10 +3,33 @@
 int command_wait() {
  char key[get_max_x()+4];
  char str[32];
+ int num;
 
  command_prompt(key);
+ return read_command(key,false);
+}
  
+// Interpret a command string. If script_mode is enabled, nothing will be
+// printed to the screen.
+int read_command(char key[],bool script_mode) {
+ char str[32];
+ int num;
+
+ // If the key is blank, do nothing but clear the command screen if in use
+ if (strcmp(key,"") == 0) {
+  if (!script_mode) clear_command();
+  return 0;
+ }
+
+ // :new starts a new game
  if (strcmp(key,"new") == 0) {
+  // Script mode
+  if (script_mode) {
+   reset_board();
+   return 0;
+  }
+
+  // Interactive mode
   clear_command();
   if (!gameover && confirm("Are you sure you want to start a new game?")) {
    reset_board();
@@ -14,31 +37,39 @@ int command_wait() {
   if (gameover) reset_board();
   return 0;
  }
- if (strcmp(key,"") == 0) {
-  clear_command();
-  return 0;
- }
+
+ // :u is undo
  if (strcmp(key,"u") == 0) {
   clear_command();
   undo();
   return 0;
  }
+
+ // :r is redo
  if (strcmp(key,"r") == 0) {
   clear_command();
   redo();
   return 0;
  }
+
+ // :q quits if the game has been saved
  if (strcmp(key,"q") == 0) {
   if (saved) {
    return EXIT;
   } else {
-   draw_error("No write since last change (add ! to override)");
+   if (!script_mode) {
+    draw_error("No write since last change (add ! to override)");
+   }
    return 0;
   }
  }
+
+ // :q! will quit even if the game has not been saved
  if (strcmp(key,"q!") == 0 ) {
   return EXIT;
  }
+
+ // :x will save the game before quitting
  if (key[0] == 'x') {
   // Save game, then exit the application
   if (strcmp(key,"x") == 0) {
@@ -52,6 +83,8 @@ int command_wait() {
    return EXIT;
   }
  }
+
+ // :w will save the game
  if (key[0] == 'w') {
   // Save game
   if (strcmp(key,"w") == 0) {
@@ -65,10 +98,14 @@ int command_wait() {
    return 0;
   }
  }
+
+ // :e will open a saved game
  if (key[0] == 'e') {
   // Open saved game
   if (key[1] != '!' && !saved) {
-   draw_error("No write since last change (add ! to override)");
+   if (!script_mode) {
+    draw_error("No write since last change (add ! to override)");
+   }
    return 0;
   }
   if (strcmp(key,"e") == 0 || strcmp(key,"e!") == 0) {
@@ -84,75 +121,104 @@ int command_wait() {
    return 0;
   }
  }
+
+ // Set difficulty to easy, hard, or god
  if (strcmp(key,"easy") == 0) {
   if (difficulty == DIF_HARD || god) {
-   if (!gameover &&
-       !confirm("Changing difficulty will reset the board. Continue?")) {
-    return 0;
+   if (!gameover && !script_mode) {
+    if (!confirm("Changing difficulty will reset the board. Continue?")) {
+     return 0;
+    }
    }
-   draw_command("Easy mode enabled.");
+   if (!script_mode) draw_command("Easy mode enabled.");
    god = false;
    difficulty = DIF_EASY;
    reset_board();
   } else {
-   draw_error("Already on easy mode.");
+   if (!script_mode) draw_error("Already on easy mode.");
   }
   return 0;
  }
  if (strcmp(key,"hard") == 0) {
   if (difficulty == DIF_EASY || god) {
-   draw_command("Hard mode enabled");
-   if (!gameover &&
-       !confirm("Changing difficulty will reset the board. Continue?")) {
-    return 0;
+   if (!gameover && !script_mode) {
+    if (!confirm("Changing difficulty will reset the board. Continue?")) {
+     return 0;
+    }
    }
    god = false;
    difficulty = DIF_HARD;
+   if (!script_mode) draw_command("Hard mode enabled");
    reset_board();
   } else {
-   draw_error("Already on hard mode");
+   if (!script_mode) draw_error("Already on hard mode");
   }
   return 0;
  }
  if (strcmp(key,"god") == 0) {
   if (god) {
-   draw_command("God mode disabled");
+   if (!script_mode) draw_command("God mode disabled");
    god = false;
    reset_board();
   } else {
-   if (!confirm("Enabling god mode will reset the board.")) return 0;
-   draw_command("God mode enabled");
+   if (!script_mode) {
+    if (!confirm("Enabling god mode will reset the board.")) return 0;
+    draw_command("God mode enabled");
+   }
    god = true;
    reset_board();
   }
   return 0;
  }
- strncpy(str,key,4);
- str[4] = '\0';
+
+ sscanf(key,"%s",str);
+ if (strcmp(str,"animation") == 0) {
+  sscanf(key,"%s %s",str,str);
+  if (strcmp(str,"off") == 0) animation = false;
+  else if (strcmp(str,"on") == 0) animation = true;
+  else if (!script_mode) {
+   draw_error("Error: Invalid argument to 'animation'");
+  }
+  return 0;
+ }
+
+ // Set board dimensions
+ num = -1;
+ sscanf(key,"%s %d",str,&num);
  if (strcmp(str,"setw") == 0) {
-  if (!confirm("Setting the width will reset the game. Continue?")) {
+  if (num <= 0) {
+   if (!script_mode) draw_error("Error: Invalid argument to 'setw'");
    return 0;
   }
-  char w[strlen(key-5)];
-  strncpy(w,&key[5],strlen(key)-5);
-  set_width(atoi(w));
+  if (!script_mode) {
+   if (!confirm("Setting the width will reset the game. Continue?")) {
+    return 0;
+   }
+  }
+  set_width(num);
   return 0;
  }
  if (strcmp(str,"seth") == 0) {
-  if (!confirm("Setting the height will reset the game. Continue?")) {
+  if (num <= 0) {
+   if (!script_mode) draw_error("Error: Invalid argument to 'seth'");
    return 0;
   }
-  char h[strlen(key-5)];
-  strncpy(h,&key[5],strlen(key)-5);
-  set_height(atoi(h));
+  if (!script_mode) {
+   if (!confirm("Setting the height will reset the game. Continue?")) {
+    return 0;
+   }
+  }
+  set_height(num);
   return 0;
  }
 
  // If we haven't found a command by now, the input must be invalid
- char text[1024] = "";
- strcat(text,"Not a command: ");
- strcat(text,key);
- draw_error(text);
+ if (!script_mode) {
+  char text[1024] = "";
+  strcat(text,"Not a command: ");
+  strcat(text,key);
+  draw_error(text);
+ }
 
  return 0;
 }
