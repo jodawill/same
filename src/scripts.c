@@ -24,7 +24,6 @@ int read_script(char fn[]) {
   // Process each command separated by a semicolon
   token = strtok(line,sc);
   while (token != NULL) {
-   strcpy(command,token);
 
    // Remove white space from command & argument
    strcpy(command,"");
