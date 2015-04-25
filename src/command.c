@@ -15,6 +15,13 @@ int read_command(char key[],bool script_mode) {
  char str[32];
  int num;
 
+ // If the command begins with any numbers, use them as multipliers. Not all
+ // commands support multipliers. For instance, it doesn't make since to
+ // run `e filename` multiple times in one command.
+ int mult = -1;
+ sscanf(key,"%d%s",&mult,key);
+ if (mult <= 0) mult = 1;
+
  // If the key is blank, do nothing but clear the command screen if in use
  if (strcmp(key,"") == 0) {
   if (!script_mode) clear_command();
@@ -38,17 +45,22 @@ int read_command(char key[],bool script_mode) {
   return 0;
  }
 
- // :u is undo
+ // :u is undo. Note that the command multiplier works differently in same
+ // than it does in vi.
  if (strcmp(key,"u") == 0) {
   clear_command();
-  undo();
+  for (int c = 0; c < mult; c++) {
+   undo();
+  }
   return 0;
  }
 
  // :r is redo
  if (strcmp(key,"r") == 0) {
   clear_command();
-  redo();
+  for (int c = 0; c < mult; c++) {
+   redo();
+  }
   return 0;
  }
 
@@ -156,17 +168,19 @@ int read_command(char key[],bool script_mode) {
   return 0;
  }
  if (strcmp(key,"god") == 0) {
-  if (god) {
-   if (!script_mode) draw_command("God mode disabled");
-   god = false;
-   reset_board();
-  } else {
-   if (!script_mode) {
-    if (!confirm("Enabling god mode will reset the board.")) return 0;
-    draw_command("God mode enabled");
+  for (int c = 0; c < mult; c++) {
+   if (god) {
+    if (!script_mode) draw_command("God mode disabled");
+    god = false;
+    reset_board();
+   } else {
+    if (!script_mode) {
+     if (!confirm("Enabling god mode will reset the board.")) return 0;
+     draw_command("God mode enabled");
+    }
+    god = true;
+    reset_board();
    }
-   god = true;
-   reset_board();
   }
   return 0;
  }
