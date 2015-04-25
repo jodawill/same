@@ -13,7 +13,7 @@ int command_wait() {
 // printed to the screen.
 int read_command(char key[],bool script_mode) {
  char str[32];
- int num;
+ int num, ret;
 
  // If the command begins with any numbers, use them as multipliers. Not all
  // commands support multipliers. For instance, it doesn't make since to
@@ -25,7 +25,7 @@ int read_command(char key[],bool script_mode) {
  // If the key is blank, do nothing but clear the command screen if in use
  if (strcmp(key,"") == 0) {
   if (!script_mode) clear_command();
-  return 0;
+  return true;
  }
 
  // :new starts a new game
@@ -39,10 +39,9 @@ int read_command(char key[],bool script_mode) {
   // Interactive mode
   clear_command();
   if (!gameover && confirm("Are you sure you want to start a new game?")) {
-   reset_board();
+   return reset_board();
   }
-  if (gameover) reset_board();
-  return 0;
+  if (gameover) return reset_board();
  }
 
  // :u is undo. Note that the command multiplier works differently in same
@@ -50,18 +49,18 @@ int read_command(char key[],bool script_mode) {
  if (strcmp(key,"u") == 0) {
   clear_command();
   for (int c = 0; c < mult; c++) {
-   undo();
+   ret = undo();
   }
-  return 0;
+  return ret;
  }
 
  // :r is redo
  if (strcmp(key,"r") == 0) {
   clear_command();
   for (int c = 0; c < mult; c++) {
-   redo();
+   ret = redo();
   }
-  return 0;
+  return ret;
  }
 
  // :q quits if the game has been saved
@@ -100,14 +99,12 @@ int read_command(char key[],bool script_mode) {
  if (key[0] == 'w') {
   // Save game
   if (strcmp(key,"w") == 0) {
-   save_game("");
-   return 0;
+   return save_game("");
   }
   if (key[1] == ' ') {
    strncpy(str,&key[2],strlen(key)-1);
    str[strlen(key)-2] = '\0';
-   save_game(str);
-   return 0;
+   return save_game(str);
   }
  }
 
@@ -116,21 +113,18 @@ int read_command(char key[],bool script_mode) {
   // Open saved game
   if (key[1] != '!' && !saved) {
    if (!script_mode) {
-    draw_error("No write since last change (add ! to override)");
+    return draw_error("No write since last change (add ! to override)");
    }
-   return 0;
   }
   if (strcmp(key,"e") == 0 || strcmp(key,"e!") == 0) {
-   load_game("");
-   return 0;
+   return load_game("");
   }
   if (key[1] == ' ' || (key[1] == '!' && key[2] == ' ')) {
    int offset = 2;
    if (key[1] == '!') offset++;
    strncpy(str,&key[offset],strlen(key)-1);
    str[strlen(key)-offset] = '\0';
-   load_game(str);
-   return 0;
+   return load_game(str);
   }
  }
 
@@ -139,33 +133,35 @@ int read_command(char key[],bool script_mode) {
   if (difficulty == DIF_HARD || god) {
    if (!gameover && !script_mode) {
     if (!confirm("Changing difficulty will reset the board. Continue?")) {
-     return 0;
+     return false;
     }
    }
    if (!script_mode) draw_command("Easy mode enabled.");
    god = false;
    difficulty = DIF_EASY;
    reset_board();
+   return true;
   } else {
    if (!script_mode) draw_error("Already on easy mode.");
   }
-  return 0;
+  return false;
  }
  if (strcmp(key,"hard") == 0) {
   if (difficulty == DIF_EASY || god) {
    if (!gameover && !script_mode) {
     if (!confirm("Changing difficulty will reset the board. Continue?")) {
-     return 0;
+     return false;
     }
    }
    god = false;
    difficulty = DIF_HARD;
    if (!script_mode) draw_command("Hard mode enabled");
    reset_board();
+   return true;
   } else {
    if (!script_mode) draw_error("Already on hard mode");
+   return false;
   }
-  return 0;
  }
  if (strcmp(key,"god") == 0) {
   for (int c = 0; c < mult; c++) {
@@ -173,16 +169,17 @@ int read_command(char key[],bool script_mode) {
     if (!script_mode) draw_command("God mode disabled");
     god = false;
     reset_board();
+    return true;
    } else {
     if (!script_mode) {
-     if (!confirm("Enabling god mode will reset the board.")) return 0;
+     if (!confirm("Enabling god mode will reset the board.")) return false;;
      draw_command("God mode enabled");
     }
     god = true;
     reset_board();
+    return true;
    }
   }
-  return 0;
  }
 
  sscanf(key,"%s",str);
@@ -192,8 +189,9 @@ int read_command(char key[],bool script_mode) {
   else if (strcmp(str,"on") == 0) animation = true;
   else if (!script_mode) {
    draw_error("Error: Invalid argument to 'animation'");
+   return false;
   }
-  return 0;
+  return true;
  }
 
  // Set board dimensions
@@ -202,28 +200,28 @@ int read_command(char key[],bool script_mode) {
  if (strcmp(str,"setw") == 0) {
   if (num <= 0) {
    if (!script_mode) draw_error("Error: Invalid argument to 'setw'");
-   return 0;
+   return false;
   }
   if (!script_mode) {
    if (!confirm("Setting the width will reset the game. Continue?")) {
-    return 0;
+    return false;
    }
   }
   set_width(num);
-  return 0;
+  return true;
  }
  if (strcmp(str,"seth") == 0) {
   if (num <= 0) {
    if (!script_mode) draw_error("Error: Invalid argument to 'seth'");
-   return 0;
+   return false;
   }
   if (!script_mode) {
    if (!confirm("Setting the height will reset the game. Continue?")) {
-    return 0;
+    return false;
    }
   }
   set_height(num);
-  return 0;
+  return true;
  }
 
  // If we haven't found a command by now, the input must be invalid
@@ -233,8 +231,7 @@ int read_command(char key[],bool script_mode) {
   strcat(text,key);
   draw_error(text);
  }
-
- return 0;
+ return ERROR;
 }
 
 int cursor_wait() {

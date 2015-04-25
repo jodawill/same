@@ -1,7 +1,8 @@
 // Game difficulty magic numbers
-#define DIF_EASY 1
-#define DIF_HARD 0
-#define EXIT -1
+#define DIF_EASY	 1
+#define DIF_HARD	 0
+#define EXIT		-2
+#define ERROR		-1
 
 // Decide what graphics library to use based on the OS. Throw a compiler
 // error if the OS isn't known to be supported.
