@@ -25,9 +25,7 @@ int command_wait() {
  }
  if (strcmp(key,"r") == 0) {
   clear_command();
-  for (int i = 0; i < multiplier; i++) {
-   redo();
-  }
+  redo();
   return 0;
  }
  if (strcmp(key,"q") == 0) {
