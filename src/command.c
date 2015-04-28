@@ -20,7 +20,7 @@ int read_command(char key[],bool script_mode) {
  // run `e filename` multiple times in one command.
  int mult = -1;
  sscanf(key,"%d%s",&mult,key);
- if (mult <= 0) mult = 1;
+ if (mult < 0) mult = 1;
 
  // If the key is blank, do nothing but clear the command screen if in use
  if (strcmp(key,"") == 0) {
