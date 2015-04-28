@@ -232,9 +232,11 @@ int read_command(char key[],bool script_mode) {
  }
 
  char msg[1024];
- sscanf(key,"%s %[^\n]",str,msg);
+ sscanf(key,"%s %s",str,msg);
  if (strcmp("confirm",str) == 0) {
-  key = &key[8];
+  for (int i = 0; i < strlen(msg); i++) {
+   if (msg[i] == '_') msg[i] = ' ';
+  }
   return confirm(msg);
  }
 
