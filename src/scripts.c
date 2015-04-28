@@ -52,9 +52,7 @@ int evaluate(char *cmd) {
   str[i-1] = '\0';
   cmd = &cmd[i+1];
   sprintf(str,"%d",evaluate(str));
-  confirm(str);
   sprintf(str,"%s%s",str,cmd);
-  confirm(str);
   return evaluate(str);
  }
 
