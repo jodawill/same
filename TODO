@@ -8,5 +8,4 @@
 * draw.c probably needs to completely go away in favor of graphics.c, which
   will eventually contain build options for multiple GUI platforms
 * Create GTK support
-* Clear screen when resizing board
 

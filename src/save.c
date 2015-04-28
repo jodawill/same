@@ -142,6 +142,7 @@ int load_game(char in[]) {
 
  fclose(sgf);
 
+ clear_all();
  draw_hst();
  draw_score();
  draw_board();
