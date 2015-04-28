@@ -21,7 +21,6 @@ int init() {
  time_t t;
  srand((unsigned)time(&t));
  define_colors();
- draw_logo();
 
  reset_board();
 
@@ -30,6 +29,10 @@ int init() {
  strcpy(file,dir);
  strcat(file,"/.samerc");
  read_script(file);
+
+ draw_logo();
+ draw_hst();
+ draw_score();
 
  cursor_wait();
 

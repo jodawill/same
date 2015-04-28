@@ -54,6 +54,11 @@ int read_command(char key[],bool script_mode) {
   return ret;
  }
 
+ if (strcmp(key,"undonum") == 0) {
+  clear_command();
+  return undonum;
+ }
+
  // :r is redo
  if (strcmp(key,"r") == 0) {
   clear_command();

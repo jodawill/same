@@ -36,6 +36,28 @@ int read_script(char fn[]) {
 }
 
 int evaluate(char *cmd) {
+ // Evaluate expression enclosed by `cmd` and prepend its result to the
+ // proceeding command. Example: `undonum`u will undo the board to its
+ // original state.
+ char str[32];
+ int i;
+ if (cmd[0] == '`') {
+  for (i = 1; i < strlen(cmd); i++) {
+   if (cmd[i] == '`') {
+    break;
+   } else {
+    str[i-1] = cmd[i];
+   }
+  }
+  str[i-1] = '\0';
+  cmd = &cmd[i+1];
+  sprintf(str,"%d",evaluate(str));
+  confirm(str);
+  sprintf(str,"%s%s",str,cmd);
+  confirm(str);
+  return evaluate(str);
+ }
+
  // Remove white space from command & argument
  char argument[32];
  char command[32];
