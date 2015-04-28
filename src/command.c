@@ -54,11 +54,6 @@ int read_command(char key[],bool script_mode) {
   return ret;
  }
 
- if (strcmp(key,"undonum") == 0) {
-  clear_command();
-  return undonum;
- }
-
  // :r is redo
  if (strcmp(key,"r") == 0) {
   clear_command();
@@ -228,6 +223,33 @@ int read_command(char key[],bool script_mode) {
   set_height(num,script_mode);
   return true;
  }
+
+ /* --- BEGIN SCRIPT FUNCTIONS --- */
+ // The following functions are only useful for scripts.
+
+ if (strcmp("rest",key) == 0) {
+  return rest();
+ }
+
+ /* --- END SCRIPT FUNCTIONS --- */
+
+ /* --- BEGIN VARIABLES --- */
+ // The commands in this section do nothing but return a variable's value.
+ // They can be useful when writing scripts.
+
+ if (strcmp("undonum",key) == 0) {
+  return undonum;
+ }
+
+ if (strcmp("redonum",key) == 0) {
+  return redonum;
+ }
+
+ if (strcmp("score",key) == 0) {
+  return score;
+ }
+
+ /* --- END VARIABLES --- */
 
  // If we haven't found a command by now, the input must be invalid
  if (!script_mode) {
