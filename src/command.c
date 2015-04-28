@@ -6,7 +6,7 @@ int command_wait() {
  int num;
 
  command_prompt(key);
- return evaluate(key);
+ return evaluate(key,false);
 }
  
 // Interpret a command string. If script_mode is enabled, nothing will be
@@ -229,6 +229,13 @@ int read_command(char key[],bool script_mode) {
 
  if (strcmp("rest",key) == 0) {
   return rest();
+ }
+
+ char msg[1024];
+ sscanf(key,"%s %[^\n]",str,msg);
+ if (strcmp("confirm",str) == 0) {
+  key = &key[8];
+  return confirm(msg);
  }
 
  /* --- END SCRIPT FUNCTIONS --- */

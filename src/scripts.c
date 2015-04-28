@@ -24,7 +24,7 @@ int read_script(char fn[]) {
   while (token != NULL) {
 
    // Process statement
-   evaluate(token);
+   evaluate(token,true);
 
    // Read next statement
    token = strtok_r(NULL,";",&ptr);
@@ -35,7 +35,7 @@ int read_script(char fn[]) {
  return 0;
 }
 
-int evaluate(char *cmd) {
+int evaluate(char *cmd,bool script_mode) {
  // Evaluate expression enclosed by `cmd` and prepend its result to the
  // proceeding command. Example: `undonum`u will undo the board to its
  // original state.
@@ -51,10 +51,11 @@ int evaluate(char *cmd) {
   }
   str[i-1] = '\0';
   cmd = &cmd[i+1];
-  sprintf(str,"%d",evaluate(str));
+  sprintf(str,"%d",evaluate(str,script_mode));
   sprintf(str,"%s%s",str,cmd);
-  return evaluate(str);
+  return evaluate(str,script_mode);
  }
+
 
  // Remove white space from command & argument
  char argument[32];
@@ -66,6 +67,6 @@ int evaluate(char *cmd) {
  }
 
  // Return command
- return read_command(command,true);
+ return read_command(command,script_mode);
 } 
 
