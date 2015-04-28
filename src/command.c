@@ -6,7 +6,7 @@ int command_wait() {
  int num;
 
  command_prompt(key);
- return read_command(key,false);
+ return evaluate(key);
 }
  
 // Interpret a command string. If script_mode is enabled, nothing will be
