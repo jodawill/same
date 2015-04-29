@@ -234,9 +234,16 @@ int read_command(char key[],bool script_mode) {
  char msg[1024];
  sscanf(key,"%s %s",str,msg);
  if (strcmp("confirm",str) == 0) {
-  for (int i = 0; i < strlen(msg); i++) {
-   if (msg[i] == '_') msg[i] = ' ';
+  char hidden[] = {-1,0};
+  strrep(msg,"\\_",hidden);
+  for (int i = 1; i < strlen(msg); i++) {
+   if (msg[i] == '_') {
+    if (msg[i-(i != 0)] != '\\') {
+     msg[i] = ' ';
+    }
+   }
   }
+  strrep(msg,hidden,"_");
   return confirm(msg);
  }
 

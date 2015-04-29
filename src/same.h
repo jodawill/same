@@ -111,6 +111,7 @@ int read_command(char key[],bool script_mode);
 bool confirm(const char* str);
 int get_rand(int n);
 int set_dir();
+int strrep(char *str,const char* srch,const char* repl);
 
 // draw.c
 int draw_hst();
