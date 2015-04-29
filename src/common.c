@@ -23,7 +23,8 @@ int replst(char *str,int i,int sl,const char* repl) {
 }
 
 // Replace all occurrences of srch in str with repl. This function works
-// even if srch is a substring of repl.
+// even if srch is a substring of repl. It's a very lazy implemenation and
+// is almost assuredly vulnerable to buffer overflows. I will fix this soon.
 int strrep(char *str,const char* srch, const char* repl) {
  int i,n = strlen(str);
  for (i = 0; i < n; i++) {
