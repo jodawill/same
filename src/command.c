@@ -227,10 +227,13 @@ int read_command(char key[],bool script_mode) {
  /* --- BEGIN SCRIPT FUNCTIONS --- */
  // The following functions are only useful for scripts.
 
+ // Wait for a very short amount of time.
  if (strcmp("rest",key) == 0) {
   return rest();
  }
 
+ // Display string (underscores become spaces) and return true or false.
+ // Usage: confirm Are_you_sure?
  char msg[1024];
  sscanf(key,"%s %s",str,msg);
  if (strcmp("confirm",str) == 0) {
