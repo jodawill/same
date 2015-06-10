@@ -65,7 +65,7 @@ If a command is enclosed by backticks, the command's return value will determine
 `undonum`u
 ```
 
-This command will redo the board until it reaches its initial state. Note that `undonum` is a special function; it does nothing but return the number of undos currently available. Other special functions include `redonum` and `score`.
+This command will redo the board until it reaches its initial state. Note that `undonum` is a special function; it does nothing but return the number of undos currently available. Other special functions include `redonum` and `score`. Of course, hard-coding the command multiplier still works in scripts. For example, `500000u` will also take the board back to its original state.
 
 ##Bugs
 Please report any bugs to https://github.com/jodawill/same/issues
