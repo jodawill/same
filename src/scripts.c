@@ -9,8 +9,6 @@ int read_script(char fn[]) {
  char *line = NULL;
  char *token;
 
- // Currently, same only supports one command per line. This may change in
- // the future.
  while (getline(&line,&length,f) != EOF) {
   char *ptr;
   // getline leaves the newline at the end of the string. Not cool
