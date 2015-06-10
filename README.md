@@ -57,7 +57,7 @@ Points are calculated by (n-1)<sup>2</sup>, where n is the number of blocks in t
 
 Same includes an interpreter for a very minimal scripting language. This can be useful for quickly loading your own preferences, much like the .vimrc file.
 
-The script can run any command that can be typed in the in-game command prompt (:commands). Commands can be separated either by a newline or a semicolon.
+The script can run any command that can be typed in the in-game command prompt (:commands). Note that any single script expression can be run at the command prompt. Commands can be separated either by a newline or a semicolon.
 
 If a command is enclosed by backticks, the command's return value will determine the number of times the next command will be executed.
 
