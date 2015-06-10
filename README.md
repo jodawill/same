@@ -62,7 +62,7 @@ The script can run any command that can be typed in the in-game command prompt (
 If a command is enclosed by backticks, the command's return value will determine the number of times the next command will be executed.
 
 ```
-\`undonum\`u
+`undonum`u
 ```
 
 This command will redo the board until it reaches its initial state. Note that `undonum` is a special function; it does nothing but return the number of undos currently available. Other special functions include `redonum` and `score`.
