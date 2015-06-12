@@ -11,16 +11,21 @@ int command_wait() {
  
 // Interpret a command string. If script_mode is enabled, nothing will be
 // printed to the screen.
-int read_command(char key[],bool script_mode) {
- char str[32];
+int read_command(char inp[],bool script_mode) {
+ char arg[32], key[32];
+ strcpy(arg,"");
+ strcpy(key,"");
  int num, ret;
 
  // If the command begins with any numbers, use them as multipliers. Not all
  // commands support multipliers. For instance, it doesn't make since to
  // run `e filename` multiple times in one command.
  int mult = -1;
- sscanf(key,"%d%s",&mult,key);
- if (mult < 0) mult = 1;
+ sscanf(inp,"%d%s %s",&mult,key,arg);
+ if (mult < 0) {
+  mult = 1;
+  sscanf(inp,"%s %s",key,arg);
+ }
 
  // If the key is blank, do nothing but clear the command screen if in use
  if (strcmp(key,"") == 0) {
@@ -81,31 +86,14 @@ int read_command(char key[],bool script_mode) {
  }
 
  // :x will save the game before quitting
- if (key[0] == 'x') {
-  // Save game, then exit the application
-  if (strcmp(key,"x") == 0) {
-   save_game("");
-   return EXIT;
-  }
-  if (key[1] == ' ') {
-   strncpy(str,&key[2],strlen(key)-1);
-   str[strlen(key)-2] = '\0';
-   save_game(str);
-   return EXIT;
-  }
+ if (strcmp(key,"x") == 0) {
+  save_game(arg);
+  return EXIT;
  }
 
  // :w will save the game
- if (key[0] == 'w') {
-  // Save game
-  if (strcmp(key,"w") == 0) {
-   return save_game("");
-  }
-  if (key[1] == ' ') {
-   strncpy(str,&key[2],strlen(key)-1);
-   str[strlen(key)-2] = '\0';
-   return save_game(str);
-  }
+ if (strcmp(key,"w") == 0){
+  return save_game(arg);
  }
 
  // :e will open a saved game
@@ -116,16 +104,7 @@ int read_command(char key[],bool script_mode) {
     return draw_error("No write since last change (add ! to override)");
    }
   }
-  if (strcmp(key,"e") == 0 || strcmp(key,"e!") == 0) {
-   return load_game("");
-  }
-  if (key[1] == ' ' || (key[1] == '!' && key[2] == ' ')) {
-   int offset = 2;
-   if (key[1] == '!') offset++;
-   strncpy(str,&key[offset],strlen(key)-1);
-   str[strlen(key)-offset] = '\0';
-   return load_game(str);
-  }
+  return load_game(arg);
  }
 
  // Set difficulty to easy, hard, or god
@@ -182,11 +161,9 @@ int read_command(char key[],bool script_mode) {
   }
  }
 
- sscanf(key,"%s",str);
- if (strcmp(str,"animation") == 0) {
-  sscanf(key,"%s %s",str,str);
-  if (strcmp(str,"off") == 0) animation = false;
-  else if (strcmp(str,"on") == 0) animation = true;
+ if (strcmp(key,"animation") == 0) {
+  if (strcmp(arg,"off") == 0) animation = false;
+  else if (strcmp(arg,"on") == 0) animation = true;
   else if (!script_mode) {
    draw_error("Error: Invalid argument to 'animation'");
    return false;
@@ -196,8 +173,8 @@ int read_command(char key[],bool script_mode) {
 
  // Set board dimensions
  num = -1;
- sscanf(key,"%s %d",str,&num);
- if (strcmp(str,"setw") == 0) {
+ sscanf(arg,"%d",&num);
+ if (strcmp(key,"setw") == 0) {
   if (num <= 0) {
    if (!script_mode) draw_error("Error: Invalid argument to 'setw'");
    return false;
@@ -210,7 +187,7 @@ int read_command(char key[],bool script_mode) {
   set_width(num,script_mode);
   return true;
  }
- if (strcmp(str,"seth") == 0) {
+ if (strcmp(key,"seth") == 0) {
   if (num <= 0) {
    if (!script_mode) draw_error("Error: Invalid argument to 'seth'");
    return false;
@@ -234,20 +211,18 @@ int read_command(char key[],bool script_mode) {
 
  // Display string (underscores become spaces) and return true or false.
  // Usage: confirm Are_you_sure?
- char msg[1024];
- sscanf(key,"%s %s",str,msg);
- if (strcmp("confirm",str) == 0) {
+ if (strcmp("confirm",key) == 0) {
   char hidden[] = {-1,0};
-  strrep(msg,"\\_",hidden);
-  for (int i = 1; i < strlen(msg); i++) {
-   if (msg[i] == '_') {
-    if (msg[i-(i != 0)] != '\\') {
-     msg[i] = ' ';
+  strrep(arg,"\\_",hidden);
+  for (int i = 1; i < strlen(arg); i++) {
+   if (arg[i] == '_') {
+    if (arg[i-(i != 0)] != '\\') {
+     arg[i] = ' ';
     }
    }
   }
-  strrep(msg,hidden,"_");
-  return confirm(msg);
+  strrep(arg,hidden,"_");
+  return confirm(arg);
  }
 
  /* --- END SCRIPT FUNCTIONS --- */
