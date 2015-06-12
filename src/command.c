@@ -222,6 +222,12 @@ int read_command(char inp[],bool script_mode) {
    }
   }
   strrep(arg,hidden,"_");
+
+  // It isn't very helpful to repeat a confirmation, but who am I to tell the
+  // user what they can or cannot do? Only the last return value is useful.
+  for (int i = 0; i < mult - 1; i++) {
+   confirm(arg);
+  }
   return confirm(arg);
  }
 
