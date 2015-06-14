@@ -3,6 +3,10 @@
 int read_script(char fn[]) {
  FILE *f = fopen(fn,"r");
  if (f == NULL) {
+  char msg[64];
+  strcpy(msg,"Unable to load script ");
+  strcat(msg,fn);
+  draw_error(msg);
   return 1;
  }
  size_t length = 0;

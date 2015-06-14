@@ -107,6 +107,11 @@ int read_command(char inp[],bool script_mode) {
   return load_game(arg);
  }
 
+ // :s will run the specified script
+ if (strcmp(key,"s") == 0) {
+  return read_script(arg);
+ }
+
  // Set difficulty to easy, hard, or god
  if (strcmp(key,"easy") == 0) {
   if (difficulty == DIF_HARD || god) {
