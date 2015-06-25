@@ -11,4 +11,6 @@
 * Remember filename throughout game
 * Upon exit, create a script so the program will reopen in the same state
   as before.
+* Extend scripting abilities into a full programming language for the use of
+  creating extensions.
 

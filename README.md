@@ -55,7 +55,7 @@ Points are calculated by (n-1)<sup>2</sup>, where n is the number of blocks in t
 
 ##Scripting
 
-Same includes an interpreter for a very minimal scripting language. This can be useful for quickly loading your own preferences, much like the .vimrc file.
+Same includes an interpreter for a very minimal scripting language. This can be useful for quickly loading your own preferences, much like the .vimrc file. However, the ultimate goal is to design a programming language that can be used for extending the functionality of the original game. For example, an extension could be written to ask the computer to find the best solution to a puzzle.
 
 The script can run any command that can be typed in the in-game command prompt (:commands). Note that any single script expression can be run at the command prompt. Commands can be separated either by a newline or a semicolon.
 
