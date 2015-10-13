@@ -26,6 +26,9 @@ int read_command(char inp[],bool script_mode) {
   mult = 1;
   sscanf(inp,"%s %s",key,arg);
  }
+ if (mult <= 0) {
+  return false;
+ }
 
  // If the key is blank, do nothing but clear the command screen if in use
  if (strcmp(key,"") == 0) {
@@ -233,11 +236,7 @@ int read_command(char inp[],bool script_mode) {
   for (int i = 0; i < mult - 1; i++) {
    confirm(arg);
   }
-  if (mult == 0) {
-   return false;
-  } else {
-   return confirm(arg);
-  }
+  return confirm(arg);
  }
 
  /* --- END SCRIPT FUNCTIONS --- */
