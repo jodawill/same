@@ -233,7 +233,11 @@ int read_command(char inp[],bool script_mode) {
   for (int i = 0; i < mult - 1; i++) {
    confirm(arg);
   }
-  return confirm(arg);
+  if (mult == 0) {
+   return false;
+  } else {
+   return confirm(arg);
+  }
  }
 
  /* --- END SCRIPT FUNCTIONS --- */
