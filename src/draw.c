@@ -1,3 +1,7 @@
+// This file contains functions for drawing the display. Although they are
+// not system dependent, they do require a monospace, plain text display.
+// This needs to go away.
+
 #include "same.h"
 
 int draw_undo() {
