@@ -99,9 +99,6 @@ int reset_board();
 int set_height(int h,bool script_mode);
 int set_width(int w,bool script_mode);
 
-// colors.c
-int define_colors();
-
 // command.c
 int command_wait();
 int cursor_wait();
@@ -128,6 +125,7 @@ int draw_block(int col,int row,int block,bool hled);
 int draw_clear_block(int col,int row);
 int clear_command();
 int command_prompt(char key[]);
+int define_colors();
 int draw_command(const char* text);
 int draw_display(int row,const char* msg);
 int draw_error(const char *msg);
