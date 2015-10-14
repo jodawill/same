@@ -370,6 +370,10 @@ int cursor_wait() {
     if (gameover) reset_board();
     break;
    }
+   case '~': {
+    if (god) score += multiplier;
+    break;
+   }
    default: {
     break;
    }
