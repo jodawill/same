@@ -214,6 +214,9 @@ int read_command(char inp[],bool script_mode) {
 
  // Wait for a very short amount of time.
  if (strcmp("rest",key) == 0) {
+  for (int i = 0; i < mult - 1; i++) {
+   rest();
+  }
   return rest();
  }
 
