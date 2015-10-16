@@ -45,7 +45,7 @@ To quit, type ':q'. To save before quitting, type ':x'.
 
 To save the game, type ':w'. Games are stored in '~/.same/NAME.sav'. To open a saved game, type ':e'. Both of these commands may preceed a game name.
 
-To play on easy mode, type ':easy'. To go back to hard mode, type ':hard'. There is also a special "god" mode to fill the board with one type of block, mainly for debugging purposes. To enable, type ':god'.
+To play on easy mode, type ':easy'. To go back to hard mode, type ':hard'. There is also a special "god" mode to fill the board with one type of block, mainly for debugging purposes. While in god mode, press ~ to add points. To enable, type ':god'.
 
 To resize the board, use ':seth n' and ':setw n'.
 
