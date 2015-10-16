@@ -106,7 +106,11 @@ int command_prompt(char key[]) {
 int draw_display(int row,const char* msg) {
  #if defined(__NCURSES__)
   attron(COLOR_PAIR(COLOR_DEFAULT));
-  mvprintw(row,width + 1,"                                    ");
+  int a,b;
+  getmaxyx(stdscr,a,b);
+  for (int i = width + 1; i < b; i++) {
+   mvprintw(row,i," ");
+  }
   mvprintw(row,width + 1,msg);
   return 0;
  #endif
