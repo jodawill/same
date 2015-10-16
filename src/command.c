@@ -36,6 +36,12 @@ int read_command(char inp[],bool script_mode) {
   return true;
  }
 
+ if (strcmp(key,"debug") == 0) {
+  draw_command("Debug mode on");
+  debug_mode = true;
+  return 0;
+ }
+
  // :new starts a new game
  if (strcmp(key,"new") == 0) {
   // Script mode
@@ -335,6 +341,9 @@ int cursor_wait() {
     for (int i = 0; i < multiplier; i++) {
      if (pos.x > 0) pos.x--;
     }
+    if (debug_mode) {
+     draw_debug_info();
+    }
     break;
    }
    case KEY_RIGHT: {
@@ -342,6 +351,9 @@ int cursor_wait() {
    case 'l': {
     for (int i = 0; i < multiplier; i++) {
      if (pos.x < width - 1) pos.x++;
+    }
+    if (debug_mode) {
+     draw_debug_info();
     }
     break;
    }
@@ -351,6 +363,9 @@ int cursor_wait() {
     for (int i = 0; i < multiplier; i++) {
      if (pos.y > 0) pos.y--;
     }
+    if (debug_mode) {
+     draw_debug_info();
+    }
     break;
    }
    case KEY_DOWN: {
@@ -358,6 +373,9 @@ int cursor_wait() {
    case 'j': {
     for (int i = 0; i < multiplier; i++) {
      if (pos.y < height - 1) pos.y++;
+    }
+    if (debug_mode) {
+     draw_debug_info();
     }
     break;
    }

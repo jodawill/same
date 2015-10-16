@@ -67,6 +67,7 @@ int display_height, display_width; // Dimensions for the table that displays
                                    // logo, score, highscore, etc.
 char hst_fn[1024]; // Highscore table filename
 int difficulty; // Difficulties are defined as DIF_EASY, DIF_HARD
+bool debug_mode; // Whether to show debugging information
 bool god; // God mode fills the screen with one block
 int highscore;
 bool hled[1024][1024]; // Stores whether a position is highlighted
@@ -111,6 +112,7 @@ int set_dir();
 int strrep(char *str,const char* srch,const char* repl);
 
 // draw.c
+int draw_debug_info();
 int draw_hst();
 int draw_score();
 int draw_undo();

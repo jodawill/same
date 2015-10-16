@@ -4,6 +4,19 @@
 
 #include "same.h"
 
+int draw_debug_info() {
+ int h;
+ if (height >= display_height) {
+  h = height;
+ } else {
+  h = display_height;
+ }
+ char msg[32];
+ sprintf(msg,"%d",board[pos.x][pos.y]);
+ draw_display(h,msg);
+ return 0;
+}
+
 int draw_undo() {
  int h;
  if (height >= display_height) {

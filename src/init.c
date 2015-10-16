@@ -1,6 +1,7 @@
 #include "same.h"
 
 int init() {
+ debug_mode = false;
  god = false;
  difficulty = DIF_HARD;
  highlight_none();
