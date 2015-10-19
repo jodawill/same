@@ -5,6 +5,20 @@
  #include <limits.h>
 #endif
 
+// Find a directory to place settings and saved games in.
+int set_dir() {
+ #if defined(__UNISTD__)
+  char *homedir = getenv("HOME");
+  strcpy(dir,homedir);
+  strcat(dir,"/.same");
+  mkdir(dir,S_IRWXU);
+  return 0;
+ #endif
+
+ return -1;
+}
+
+
 // Since there's no standard method for obtaining a char without hitting the
 // return key, we're going to use system dependent funcitons for this.
 int ask_char() {

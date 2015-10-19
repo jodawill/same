@@ -108,7 +108,6 @@ int read_command(char key[],bool script_mode);
 // common.c
 bool confirm(const char* str);
 int get_rand(int n);
-int set_dir();
 int strrep(char *str,const char* srch,const char* repl);
 
 // draw.c
@@ -174,4 +173,5 @@ int read_script(char fn[]);
 // sysdep.c
 int ask_char();
 int rest();
+int set_dir();
 
