@@ -59,11 +59,14 @@ int get_rand(int n) {
 }
 
 int set_dir() {
- char *homedir = getenv("HOME");
- strcpy(dir,homedir);
- strcat(dir,"/.same");
- mkdir(dir,S_IRWXU);
+ #if defined(__UNISTD__)
+  char *homedir = getenv("HOME");
+  strcpy(dir,homedir);
+  strcat(dir,"/.same");
+  mkdir(dir,S_IRWXU);
+  return 0;
+ #endif
 
- return 0;
+ return -1;
 }
 
