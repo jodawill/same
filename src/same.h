@@ -4,6 +4,15 @@
 #define EXIT		-2
 #define ERROR		-1
 
+// Command line arguments; the array checked_flags[] will hold whether each
+// of these has been specified via the command line arguments.
+#define FLAG_GOD	0
+#define FLAG_WIDTH	1
+#define FLAG_HEIGHT	2
+#define FLAG_DIF	3
+/* ------------------- */
+#define FLAG_TOTAL	4
+
 // Decide what graphics library to use based on the OS. Throw a compiler
 // error if the OS isn't known to be supported.
 #if defined(__APPLE__) || defined(__linux__)
@@ -53,6 +62,7 @@
 #endif
 
 // Global variables
+bool checked_flags[FLAG_TOTAL];
 bool gameover; // Whether the game is over
 // multiplier stores the number of times an action is to be performed
 int multiplier;
@@ -119,6 +129,9 @@ int draw_undo();
 // endgame.c
 int end_game();
 
+// flags.c
+int check_flags(int argc, char *argv[]);
+
 // graphics.c
 int clean_screen();
 int clear_all();
@@ -157,7 +170,7 @@ int write_hst();
 
 // init.c
 int cleanup();
-int init();
+int init(int argc, char *argv[]);
 
 // save.c
 int copy_board();

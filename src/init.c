@@ -1,6 +1,6 @@
 #include "same.h"
 
-int init() {
+int init(int argc, char *argv[]) {
  debug_mode = false;
  god = false;
  difficulty = DIF_HARD;
@@ -22,6 +22,8 @@ int init() {
  time_t t;
  srand((unsigned)time(&t));
  define_colors();
+
+ check_flags(argc, argv);
 
  reset_board();
 

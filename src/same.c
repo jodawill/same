@@ -1,7 +1,8 @@
 #include "same.h"
 
 int main(int argc, char *argv[]) {
- init();
+ check_flags(argc, argv);
+ init(argc, argv);
  cleanup();
  return 0;
 }
