@@ -7,6 +7,12 @@ int check_flags(int argc, char *argv[]) {
  }
 
  for (int i = 1; i < argc; i++) {
+  if (strcmp(argv[i],"--reverse-gravity") == 0) {
+   checked_flags[FLAG_REVGRAV] = true;
+   reverse_gravity = true;
+   continue;
+  }
+
   if (strcmp(argv[i],"--god") == 0) {
    checked_flags[FLAG_GOD] = true;
    god = true;

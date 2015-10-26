@@ -3,6 +3,7 @@
 int init(int argc, char *argv[]) {
  debug_mode = false;
  god = false;
+ reverse_gravity = false;
  difficulty = DIF_HARD;
  highlight_none();
  struct pos {

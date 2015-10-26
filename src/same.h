@@ -10,8 +10,9 @@
 #define FLAG_WIDTH	1
 #define FLAG_HEIGHT	2
 #define FLAG_DIF	3
+#define FLAG_REVGRAV	4
 /* ------------------- */
-#define FLAG_TOTAL	4
+#define FLAG_TOTAL	5
 
 // Decide what graphics library to use based on the OS. Throw a compiler
 // error if the OS isn't known to be supported.
@@ -89,6 +90,7 @@ int board_undo[1024][64][64]; // Same as board[][], but for the
                               // undo history.
 static int blocknum = 4; // Total number of distinct block types
 char hsn[14]; // Highscore name
+bool reverse_gravity; // Whether to make the blocks fall upward
 int redonum; // Number of redos available
 int undonum; // Number of undos available
 int score_undo[1024]; // Stores score at each point in undo history

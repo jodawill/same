@@ -1,20 +1,41 @@
 #include "same.h"
 
 int collapse_vertical() {
- for (int col = width-1; col >= 0; col--) {
-  for (int row = height-1; row > 0; row--) {
-   if (board[col][row] < 0 && row > 0) {
-    int r;
-    for (r = row; r > 0 && board[col][r] < 0; r--);
-    board[col][row] = board[col][r];
-    for (; r > 0; r--) {
-     board[col][r] = board[col][r-1];
+ if (reverse_gravity) {
+  goto reverse_gravity;
+ } else {
+  goto regular_gravity;
+ }
+
+ regular_gravity: {
+  for (int col = width-1; col >= 0; col--) {
+   for (int row = height-1; row > 0; row--) {
+    if (board[col][row] < 0 && row > 0) {
+     int r;
+     for (r = row; r > 0 && board[col][r] < 0; r--);
+     board[col][row] = board[col][r];
+     for (; r > 0; r--) {
+      board[col][r] = board[col][r-1];
+     }
+     board[col][0] = -1;
     }
-    board[col][0] = -1;
+   }
+  }
+  return 0;
+ }
+
+ reverse_gravity: {
+  for (int col = 0; col < width; col++) {
+   for (int row = height-1; row > 0; row--){
+    if (board[col][row] < 0) {
+     for (int r = row; r < height-1; r++) {
+      board[col][r] = board[col][r+1];
+     }
+     board[col][height-1] = -1;
+    } 
    }
   }
  }
-
  return 0;
 }
 
