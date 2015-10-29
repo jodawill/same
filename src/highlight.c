@@ -26,7 +26,7 @@ int collapse_vertical() {
 
  reverse_gravity: {
   for (int col = 0; col < width; col++) {
-   for (int row = height-1; row > 0; row--){
+   for (int row = height-1; row >= 0; row--){
     if (board[col][row] < 0) {
      for (int r = row; r < height-1; r++) {
       board[col][r] = board[col][r+1];

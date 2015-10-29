@@ -77,6 +77,23 @@ int read_command(char inp[],bool script_mode) {
   return ret;
  }
 
+ if (strcmp(key,"revgrav") == 0) {
+  if (strcmp(arg,"on") == 0) {
+   reverse_gravity = true;
+   collapse_vertical();
+   draw_command("Reverse gravity enabled");
+   return 0;
+  }
+  if (strcmp(arg,"off") == 0) {
+   reverse_gravity = false;
+   collapse_vertical();
+   draw_command("Reverse gravity disabled");
+   return 0;
+  }
+  draw_error("Invalid argument to revgrav");
+  return ERROR;
+ }
+
  // :q quits if the game has been saved
  if (strcmp(key,"q") == 0) {
   if (saved) {
