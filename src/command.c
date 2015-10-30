@@ -123,7 +123,7 @@ int read_command(char inp[],bool script_mode) {
  }
 
  // :e will open a saved game
- if (key[0] == 'e') {
+ if (key[0] == 'e' && strcmp(key,"easy") != 0) {
   // Open saved game
   if (key[1] != '!' && !saved) {
    if (!script_mode) {
