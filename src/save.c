@@ -20,7 +20,10 @@ int save_game(char in[]) {
 
  FILE *sgf = fopen(sfn,"w");
 
- fprintf(sgf,"%d\n%d\n%d\n%d\n%d\n%d\n%d\n",width,height,score,undonum,redonum,(int)difficulty,(int)god);
+ if (fprintf(sgf,"%d\n%d\n%d\n%d\n%d\n%d\n%d\n",width,height,score,undonum,redonum,(int)difficulty,(int)god) < 0) {
+  draw_error("Cannot open file: access denied");
+  return ERROR;
+ }
 
  for (int u = 0; u <= undonum+redonum; u++) {
   fprintf(sgf,"%d\n",score_undo[u]);
